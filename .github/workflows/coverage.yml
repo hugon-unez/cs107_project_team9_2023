@@ -1,1 +1,5 @@
 name: CS107 Project - Code Coverage
+
+on:
+  pull_request:
+    types: [opened, reopened]

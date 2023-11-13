@@ -1,1 +1,5 @@
 name: CS107 Project - Tests
+
+on:
+  pull_request:
+    types: [opened, reopened]
