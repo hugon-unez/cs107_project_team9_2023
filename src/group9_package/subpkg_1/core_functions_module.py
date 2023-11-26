@@ -20,14 +20,15 @@ class SpectralAnalysisBase:
         self.data = data
 
     # helper function to catch obviously invalid queries
-    def query_validation(query):
+    @staticmethod
+    def query_validation(query:str):
         if 'select' not in query.lower() or 'from' not in query.lower():
             raise ValueError("Query is invalid.")
 
     def execute_query(self):
         # use try except block in order to catch issues with query
         try:
-            self.validate_query()  # Validate the query before executing
+            self.query_validation(self.query)  # Validate the query before executing
             result = SDSS.query_sql(self.query)
             self.data = Table(result)
         except (RemoteServiceError, TimeoutError, ValueError) as e:
@@ -40,7 +41,7 @@ class SpectralAnalysisBase:
 
 
 def main():
-    query = "select top 10 XYA, ra, dec, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
+    query = "select top 10 ra, dec, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
     analysis_instance = SpectralAnalysisBase(query)
     analysis_instance.execute_query()
 
