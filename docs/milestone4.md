@@ -16,6 +16,7 @@
 			- cross_matching_module.py
 	- tests
 		- __init__.py
+
 		- subpkg_1
 			- test_core_functions_module.py
 				- Class TestBase
@@ -54,7 +55,7 @@
 					- def test_predict_proba
 			- test_Cross_matching_module.py
 				- Class TestCrossMatch
-					- def test_cross_matc
+					- def test_cross_match
 - docs
 	- milestone4.md
 	- makefile
