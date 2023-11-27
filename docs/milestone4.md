@@ -1,6 +1,6 @@
-<center># Structure of Directory</center>
-- LICENSE
+# Structure of Directory
 
+- LICENSE
 	- Rationale: We chose to use this license because we feel that any modifications to the library itself must be free and usable by everyone. This license follows the copyleft standard; however, we believe that proprietary software can use our library if they do not make any changes or modifications to the library. We believe a company does not have to release their proprietary software if they do not modify our library and are free to advertise their software. In regards to patents, we do not have to worry about them because the library will be free to use by everyone and all modifications will be free to use. We believe that it makes the most sense to allow modifications to the library in the case that next year's CS107 project potentially can modify this library. Furthermore, we chose to use a copyleft license to make sure that we were in accordance and compatible with any of the licenses for the libraries we import in our modules.
 
 - README
@@ -67,8 +67,8 @@
 	- makefile
 	- conf.py
 
-<center># Distribution of Code:</center>
+# Distribution of Code:
 PyPI
 
-<center>License Selection:</center>
+# License Selection:
 GNU Lesser General Public License v3.0 or later
