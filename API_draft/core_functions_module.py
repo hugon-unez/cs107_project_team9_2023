@@ -46,6 +46,51 @@ class SpectralAnalysisBase:
             print("Query executed successfully and result stored in data attribute.")
         
 
+class MetaDataExtractor(SpectralAnalysisBase):
+    def __init__(self, query, data=None):
+        # Initializes MetadataExtractor class
+
+        #    Args:
+        #     query (str): String parameter containing an ADQL query to query the SDSS database
+        #     data (astropy.table.Table, optional): Optional parameter to input spectral data as Astropy Table object
+        #         Default = None.
+        
+        super().__init__(query, data)
+
+    def extract_identifiers(self):
+        # extracts identifiers from the data
+        if self.data is None:
+            raise ValueError("No data available to extract identifiers.")
+        
+        identifiers = self.data['bestObjID']
+        return identifiers
+
+    def extract_coordinates(self):
+        # extracts coordinates from the data
+        if self.data is None:
+            raise ValueError("No data available to extract coordinates.")
+        
+        coordinates = self.data['ra', 'dec']
+        return coordinates
+
+    def extract_chemical_abundances(self):
+        # extracts chemical abundances 
+        # assume the chemical abundances are stored in specific columns in the data
+        if self.data is None:
+            raise ValueError("No data available to extract chemical abundances.")
+        
+        # replace 'chemical_abundance_column' with the actual column name in your data
+        chemical_abundances = self.data['chemical_abundance_column']
+        return chemical_abundances
+
+    def extract_redshifts(self):
+        # extracts redshift values 
+        if self.data is None:
+            raise ValueError("No data available to extract redshifts.")
+        
+        redshifts = self.data['z']
+        return redshifts
+
 
 def main():
     query = "select top 10 ra, dec, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
