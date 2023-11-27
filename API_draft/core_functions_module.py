@@ -73,13 +73,14 @@ class MetaDataExtractor(SpectralAnalysisBase):
         coordinates = self.data['ra', 'dec']
         return coordinates
 
+    # below needs to be adjusted for correct chemical abundance colums
     def extract_chemical_abundances(self):
         # extracts chemical abundances 
         # assume the chemical abundances are stored in specific columns in the data
         if self.data is None:
             raise ValueError("No data available to extract chemical abundances.")
         
-        # replace 'chemical_abundance_column' with the actual column name in your data
+        # find the actual column name in dataset
         chemical_abundances = self.data['chemical_abundance_column']
         return chemical_abundances
 
