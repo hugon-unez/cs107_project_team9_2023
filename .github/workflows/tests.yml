@@ -1,5 +1,33 @@
+# Name of the workflow
 name: CS107 Project - Tests
 
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on a pull request for the dev and main branch
   pull_request:
     types: [opened, reopened]
+    branches:
+      - dev
+      - main
+
+  # Triggers the workflow on push for all branches
+  push:
+    branches:
+      - "**"
+  
+
+jobs:
+  test_core_functions_module:
+    name: Test Python implementation of the core functions module
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the head of branch (what you just pushed)
+      - uses: actions/checkout@v3
+      # Setup Python environment in the container
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.10' # let's use a recent version
+      - name: Install Python dependencies
+        run: pip install pytest && pip install astropy
+      - name: Run test suite
+        run: pytest -q src/tests/subpkg1/test_core_functions_module.py
