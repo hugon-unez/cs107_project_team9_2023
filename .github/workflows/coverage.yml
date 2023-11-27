@@ -1,5 +1,43 @@
+# Name of the workflow
 name: CS107 Project - Code Coverage
 
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on a pull request for the dev and main branch
   pull_request:
     types: [opened, reopened]
+    branches:
+      - dev
+      - main
+
+  # Triggers the workflow on push for all branches
+  push:
+    branches:
+      - "**"
+  
+jobs:
+  test_code_coverage_core_functions_module:
+    name: Code coverage of the tests for the core functions module
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the head of branch (what you just pushed)
+      - uses: actions/checkout@v3
+      # Setup Python environment in the container
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.10' # let's use a recent version
+      - name: Install Python dependencies
+        run: pip install pytest && pip install pytest-cov && pip install astropy
+      - name: Run test suite with coverage
+        run: |
+          pytest --cov=src/tests/subpkg1 --cov-report=xml
+      - name: Check test coverage
+        run: |
+          coverage=$(xmlstarlet sel -t -v "sum(//report/data/coverage[starts-with(@name, 'src/tests/subpkg1')]/@value)") # Extracting coverage percentage
+          if (( $(echo "$coverage > 90" | bc -l) )); then
+            echo "Coverage is above 90%"
+            exit 0 # Pass the workflow
+          else
+            echo "Coverage is below 90%"
+            exit 1 # Fail the workflow
+          fi
