@@ -11,6 +11,13 @@ from requests.exceptions import RequestException
 
 class SpectralAnalysisBase:
     def __init__(self, query, data=None):
+        """Initializes the base class for spectral analysis class
+
+        Args:
+            query (str): String parameter containing an ADQL query to query the SDSS database.
+            data (astropy.table.Table, optional): Optional parameter to input spectral data as an Astropy Table object.
+                Defaults to None.
+        """
         self.query = query
 
         # Check that data is Table type, the type returned by query
