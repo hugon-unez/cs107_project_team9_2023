@@ -20,47 +20,45 @@
 			- machine_learning_module.py
 			- cross_matching_module.py
 
-	- tests
-		- __init__.py
+- tests
+	- subpkg_1
+		- test_core_functions_module.py
+			- Class TestBase
+				- def test_execute_query
+			- Class TestDataPreprocessor
+				- def test_normalize_data
+				- def test_remove_outliers
+				- def test_interpolate_data
+				- def test_correct_redshift
+			- Class TestMetadataExtractor
+				- def test_extract_identifiers
+				- def test_extract_coordinates	
+				- def test_extract_chemical_abundances
+				- def test_extract_redshifts
+			- Class TestWavelengthAlign
+				- def test_align_wavelengths
+		-  test_visualization_module.py
+			- Class TestVisualize
+				- def test_visualize_function
+		- test_data_augmentation_module.py
+			- Class TestAugment
+				- def test_compute_derivative
+				- def test_compute_fractional_derivative
+				- def test_append_derivatives
+				- def test_append_fractional_derivatives
+				- def test_augment_data
 
-		- subpkg_1
-			- test_core_functions_module.py
-				- Class TestBase
-					- def test_execute_query
-				- Class TestDataPreprocessor
-					- def test_normalize_data
-					- def test_remove_outliers
-					- def test_interpolate_data
-					- def test_correct_redshift
-				- Class TestMetadataExtractor
-					- def test_extract_identifiers
-					- def test_extract_coordinates	
-					- def test_extract_chemical_abundances
-					- def test_extract_redshifts
-				- Class TestWavelengthAlign
-					- def test_align_wavelengths
-			-  test_visualization_module.py
-				- Class TestVisualize
-					- def test_visualize_function
-			- test_data_augmentation_module.py
-				- Class TestAugment
-					- def test_compute_derivative
-					- def test_compute_fractional_derivative
-					- def test_append_derivatives
-					- def test_append_fractional_derivatives
-					- def test_augment_data
-
-		- subpkg_2
-			- test_machine_learning_module.py
-				- Class TestClassification
-					- def test_get_params
-					- def test_set_params
-					- def test_fit
-					- def test_predict
-					- def test_predict_proba
-			- test_Cross_matching_module.py
-				- Class TestCrossMatch
-					- def test_cross_match
+	- subpkg_2
+		- test_machine_learning_module.py
+			- Class TestClassification
+				- def test_get_params
+				- def test_set_params
+				- def test_fit
+				- def test_predict
+				- def test_predict_proba
+		- test_Cross_matching_module.py
+			- Class TestCrossMatch
+				- def test_cross_match
 
 - docs
 	- milestone4.md
