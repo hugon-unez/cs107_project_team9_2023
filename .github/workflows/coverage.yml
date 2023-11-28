@@ -17,6 +17,9 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+permissions: 
+  contents: write
   
 jobs:
   test_code_coverage_core_functions_module:
