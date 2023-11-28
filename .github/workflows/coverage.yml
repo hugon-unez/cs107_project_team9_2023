@@ -47,15 +47,14 @@ jobs:
       - name: Run tests and generate coverage html
         run: (cd tests && ./run_tests.sh CI --cov=group9_package --cov-report=html:htmlcov)
 
-      # Remove .gitignore file in test coverage data to be pushed to gh-pages
-      # branch
-      - name: Clean .gitignore in coverage output
-        run: rm -f tests/htmlcov/.gitignore
+      # # Remove .gitignore file in test coverage data to be pushed to gh-pages
+      # # branch
+      # - name: Clean .gitignore in coverage output
+      #   run: rm -f tests/htmlcov/.gitignore
 
-      # Deploy to gh-pages branch
-      - name: Deploy test coverage GitHub page
-        uses: JamesIves/github-pages-deploy-action@3.6.2
-        with:
-          branch: gh-pages  # Replace 'gh-pages' with your target branch name
-          folder: tests/htmlcov
-          repository_url: 'https://code.harvard.edu/CS107/team09_2023.git'  # Update this line with your repository URL
+      # # Deploy to gh-pages branch
+      # - name: Deploy test coverage GitHub page
+      #   uses: JamesIves/github-pages-deploy-action@3.6.2
+      #   with:
+      #     branch: gh-pages  # Replace 'gh-pages' with your target branch name
+      #     folder: tests/htmlcov
