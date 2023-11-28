@@ -54,7 +54,7 @@ jobs:
 
       # Deploy to gh-pages branch
       - name: Deploy test coverage GitHub page
-        uses: JamesIves/github-pages-deploy-action@4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages  # Replace 'gh-pages' with your target branch name
           folder: tests/htmlcov
