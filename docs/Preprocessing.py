@@ -5,6 +5,7 @@ from scipy.interpolate import interp1d
 from scipy.stats import zscore
 from astropy.table import Table
 from astroquery.sdss import SDSS
+import pandas as pd
 
 class DataPreprocessor(SpectralAnalysisBase):
 #Spectral Data:
@@ -13,73 +14,75 @@ class DataPreprocessor(SpectralAnalysisBase):
 #presented as a graph where the x-axis represents the wavelength (or frequency) of light
 #and the y-axis represents the intensity or flux of light at each wavelength.
 
-#Flux in the context of spectra refers to the intensity of light at each wavelength. 
-#It quantifies how much energy is emitted or received by an object per unit of time,
-#Per unit of area, and per unit of wavelength
-
 #For light waves, the wavelength corresponds to the distance between two successive 
 #peaks or troughs of the electromagnetic wave.
 
+#User is expected to provide the query
+    def __init__(self, query, data):
 
-#Don't have to worry about query since the user is expected to provide the query
-    def __init__(self, query_flux, query_wavelength):
-        #So here, am i establishing flux as the query from the original class?
-        super().__init__(query_flux)
-        self.query_wavelength = query_wavelength
+        #Similar to pp6 in that we're turning the query into a pandas dataframe
+        self.query = query
+        self.data = data
 
-        #1.Based on the original base class, does query_flux and query_wavelength have to be table names?
+        job = SDSS.launch_job(self.query)
+        r = job.get_results()
+        self.data = r.to_pandas()
+
+        self.column_headers = list(self.data.columns)
 
     def normalize_data(self):
         if self.data is not None:
-            # Perform normalization on flux data in PhotoObjAll
-            #2.I'm not sure which table I am supposed to be pulling flux data from. How would I know the column name?
-            #Getting Z Score of flux data
-            normalized_flux_data = (self.data['flux'] - np.mean(self.data['flux'])) / np.std(self.data['flux'])
-            
-            #Resetting what the column is equal to
-            self.data['flux'] = normalized_flux_data
+            # Perform normalization on the data 
+            #looping through each column and normalizing each one and replacing them 
+            for header in self.column_headers:
+                normalized_flux_data = (self.data[header] - np.mean(self.data[header])) / np.std(self.data[header])
+                #Resetting what the column is equal to
+                self.data[header] = normalized_flux_data
         else:
-            raise ValueError("No flux data available for normalization")
+            raise ValueError("No data available for normalization")
 
     def remove_outliers(self, threshold=2.5):
         if self.data is not None:
-            # Remove outliers from flux data in PhotoObjAll using z-score
-            z_scores = np.abs(zscore(self.data['flux']))
-            outliers_removed_data = self.data[z_scores < threshold]
-            self.data = outliers_removed_data
+            for header in self.column_headers:
+                # Remove outliers from data in using z-score
+                z_scores = np.abs(zscore(self.data[header]))
+                outliers_removed = self.data[header][z_scores < threshold]
+                self.data[header] = outliers_removed
         else:
-            raise ValueError("No flux data available for outlier removal")
+            raise ValueError("No data available for outlier removal")
 
 #Interpolation is commonly employed when you have a set of discrete data points 
 #and you want to estimate the values at positions that are not explicitly provided.
     def interpolate_data(self, new_wavelengths):
         if self.data is not None:
-            # Interpolate flux data in PhotoObjAll to new_wavelengths
-            interpolate_U = interp1d(self.data_wavelength['u'], self.data['flux'], kind='linear', fill_value='extrapolate')(new_wavelengths)
-            
-            #Interpolating flux and wavelength and then replacing
-            self.data = Table({'u': new_wavelengths, 'flux': interpolate_flux})
-        else:
-            raise ValueError("No flux data available for interpolation")
+            for header in self.column_headers:
+                #spectral data probably observes non-linear relationship
+                interp_function = interp1d(self.data.index, self.data[header], kind='cubic', fill_value="extrapolate")
 
+                # Use the interpolation function to estimate values at new_wavelengths
+                interpolated_values = interp_function(new_wavelengths)
+
+                # Update the dataframe with the interpolated values
+                self.data[header] = interpolated_values
+        else:
+            raise ValueError("No data available for interpolation")
 
 #the light emitted by distant objects undergoes a redshift, meaning that the wavelengths of the 
 #Emitted light are stretched and shifted towards the longer, "red" end of the electromagnetic spectrum.
-
 #the redshift of an object is directly proportional to its distance from an observer due to the expansion 
 # of the universe. The farther an object is, the greater its redshift tends to be.
 
-
-
-#Where do I get the redshift values??
-
-
-#Can I do self.data_wavelength?
-
-#How do I access the wavelength column?
-    def correct_redshift(self, redshift_values):
-        if self.data_wavelength is not None:
+    def correct_redshift(self):
+        if self.data is not None:
             # Adjust wavelengths in SpecObjAll based on redshift values
-            self.data_wavelength['wavelength'] /= (1 + redshift_values)
+            #Original spectra is emit
+            #observed is what happens after spectra has been affected by redshift
+            #redshift correction is retrieving original spectra
+            #wikipedia says equation is (1+z = obs. wavelength / emitted wavelength)
+            #Rearranged equation to get emitted wavelength
+            ultraviolet_corrected = self.data['u'] / (1 + self.data['z'])
+            green_corrected = self.data['g'] /  (1 + self.data['z'])
+            red_corrected = self.data['r'] /  (1 + self.data['z'])
+            near_infrared = self.data['i'] / (1 + self.data['z'])
         else:
             raise ValueError("No wavelength data available for redshift correction")
