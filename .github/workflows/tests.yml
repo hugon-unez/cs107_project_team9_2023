@@ -30,4 +30,4 @@ jobs:
       - name: Install Python dependencies
         run: pip install pytest && pip install astropy
       - name: Run test suite
-        run: pytest -q src/tests/subpkg_1/test_core_functions_module.py
+        run: pytest -q tests
