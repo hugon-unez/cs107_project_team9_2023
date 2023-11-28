@@ -29,6 +29,8 @@ jobs:
           python-version: '3.10' # let's use a recent version
       - name: Install Python dependencies
         run: pip install pytest && pip install astropy
+      - name: List directory content
+        run: ls -R
       - name: Print pwd
         run: pwd
       - name: Run test suite
