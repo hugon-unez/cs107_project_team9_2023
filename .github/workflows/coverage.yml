@@ -39,10 +39,9 @@ jobs:
       - name: Build and install the group9_package in the container (using PEP517/518)
         run: (python -m build --wheel && python -m pip install dist/*)
 
-      # Set execute permissions on the script file
-      - name: Set execute permissions on check_coverage.sh
-        run: chmod +x tests/check_coverage.sh
-
-      # Run the test coverage for the build
+      # Check coverage and fail if below 90%
       - name: Check code coverage
-        run: (cd tests && ./check_coverage.sh)
+        run: |
+          coverage_threshold=90
+          coverage_result=$(cd tests && coverage run --source=group9_package -m pytest && coverage report --fail-under=$coverage_threshold)
+          echo "$coverage_result"
