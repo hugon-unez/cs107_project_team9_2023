@@ -45,15 +45,10 @@ jobs:
 
       # Run the test coverage for the build
       - name: Run tests and generate coverage html
-        run: (cd tests && ./run_tests.sh CI --cov=group9_package --cov-report=html:htmlcov)
+        run: (cd tests && pytest --cov=group9_package)
 
-      # Fail if coverage is less than 90%
-      - name: Check test coverage
+      - name: Check code coverage
         run: |
-          coverage_percentage=$(grep -oP 'TOTAL\s+\K(\d+)%' tests/htmlcov/index.html | tr -d '%')
-          if [ "$coverage_percentage" -lt 90 ]; then
-            echo "Code coverage is below 90% ($coverage_percentage%)"
-            exit 1  # Fail the build
-          else
-            echo "Code coverage is $coverage_percentage%, meets the required threshold."
-          fi
+          coverage_threshold=90
+          coverage_result=$(cd tests && coverage run --source=group9_package -m pytest && coverage report --fail-under=$coverage_threshold)
+          echo "$coverage_result"
