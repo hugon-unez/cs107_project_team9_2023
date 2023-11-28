@@ -8,5 +8,6 @@ coverage_result=$(coverage run --source=group9_package -m pytest && coverage rep
 echo "$coverage_result"
 # Check if coverage is below the threshold and exit with a non-zero status code if so
 if [[ $? -ne 0 ]]; then
-  exit 1
+    echo "Got in"
+    exit 1
 fi
