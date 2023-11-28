@@ -44,9 +44,6 @@ jobs:
         run: chmod +x tests/run_tests.sh
 
       # Run the test coverage for the build
-      - name: Run tests and generate coverage html
-        run: (cd tests && pytest --cov=group9_package)
-
       - name: Check code coverage
         run: |
           coverage_threshold=90
