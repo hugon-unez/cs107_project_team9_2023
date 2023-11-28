@@ -40,8 +40,10 @@ class SpectralAnalysisBase:
             self.data = Table(result)
         except (RemoteServiceError, TimeoutError, ValueError) as e:
             print(f"Query Error: {e}")
+            raise
         except RequestException as e:
             print(f"RequestException: {e}")
+            raise
         else:
             print("Query executed successfully and result stored in data attribute.")
         
