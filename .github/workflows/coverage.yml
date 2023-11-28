@@ -17,9 +17,6 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
-permissions: 
-  contents: write
   
 jobs:
   test_code_coverage_core_functions_module:
@@ -61,3 +58,4 @@ jobs:
         with:
           branch: gh-pages  # Replace 'gh-pages' with your target branch name
           folder: tests/htmlcov
+          repository_url: 'https://code.harvard.edu/CS107/team09_2023.git'  # Update this line with your repository URL
