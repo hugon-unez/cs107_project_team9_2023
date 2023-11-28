@@ -42,6 +42,7 @@ jobs:
       # Check coverage and fail if below 90%
       - name: Check code coverage
         run: |
+          set -x
           coverage_threshold=90
           coverage_result=$(cd tests && coverage run --source=group9_package -m pytest && coverage report --fail-under=$coverage_threshold)
           echo "$coverage_result"
