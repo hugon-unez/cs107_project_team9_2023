@@ -1,10 +1,9 @@
 """This test module runs tests for core_functions_module.py"""
 
-from astroquery.sdss import sdss
+from astroquery.sdss import SDSS
 from astropy.table import Table
 from astroquery.exceptions import RemoteServiceError, TimeoutError
 from requests.exceptions import RequestException
-
 import pytest
 
 
@@ -14,39 +13,50 @@ class TestSpectralAnalysisBase():
     def test_init(self):
         """This is a trivial test to ensure that tests the __init__ function"""
 
-        # Initializing AstroQuery Class
-        selected_object = 'pluto'
-        astro = AstroQuery(selected_object)
+        # Initializing Core Class
+        query = f'''SELECT epoch, ra, dec, g_mag FROM gaiadr3.sso_observation WHERE astrometric_outcome_transit = 1 AND denomination = 'pluto'
+            '''
+        astro = AstroQuery(query)
 
-        assert hasattr(astro, "temp1")
-        assert hasattr(astro, "temp2")
-        assert hasattr(astro, "selected_object")
+        assert hasattr(astro, "query")
+        assert hasattr(astro, "data")
 
     def test_execute_query(self):
         """This a trivial test to check the return value of extract"""
 
-        # Calling extract 
-        selected_object = 'pluto'
-        astro = AstroQuery(selected_object)
-        extract_information = astro.extract()
+        # Calling execute query 
+        query = f'''SELECT epoch, ra, dec, g_mag FROM gaiadr3.sso_observation WHERE astrometric_outcome_transit = 1 AND denomination = 'pluto'
+            '''
+        astro = AstroQuery(query)
+        astro.execute_query()
         
         # Manually performing query
-        Gaia.MAIN_GAIA_TABLE = 'gaiadr3.gaia_source'
+        data = Table(SDSS.query_sql(query))
 
-        query = f'''SELECT inclination, eccentricity, semi_major_axis FROM gaiadr3.sso_orbits WHERE denomination = '{selected_object}'
-            '''
-        job = Gaia.launch_job(query)
-        data = job.get_results()
-        a_df = data.to_pandas()
-        temp1 = a_df
-    
-        query = f'''SELECT epoch, ra, dec, g_mag FROM gaiadr3.sso_observation WHERE astrometric_outcome_transit = 1 AND denomination = '{selected_object}'
-            '''
-        job = Gaia.launch_job(query)
-        data = job.get_results()
-        c_df = data.to_pandas()
-        temp2 = c_df
+        assert data == astro.data
 
-        manual_information = (f'The denomination specified for both queries is {selected_object}. The table for observations is {temp1} and the table for orbits is {temp2}')
-        
-        assert manual_information == extract_information
+        # Test invalid query Value Error Raised no Select
+
+        query = f'''invalid query test
+            '''
+        astro = AstroQuery(query)
+
+        with pytest.raises(ValueError):
+            astro.execute_query()
+
+        # Test invalid query Value Error Raised no Select
+
+        query = f'''select query test
+            '''
+        astro = AstroQuery(query)
+
+        with pytest.raises(ValueError):
+            astro.execute_query()
+
+        # Test setting data not equal to Table Astroquery DataType
+
+        query = f'''SELECT epoch, ra, dec, g_mag FROM gaiadr3.sso_observation WHERE astrometric_outcome_transit = 1 AND denomination = 'pluto'
+            '''
+
+        with pytest.raises(ValueError):
+            astro = AstroQuery(query,data=[])
