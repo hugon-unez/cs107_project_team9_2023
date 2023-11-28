@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-python@v3
         with:
           python-version: '3.10' # let's use a recent version
-          
+
       # Install Python dependencies
       - name: Install dependencies
         run: python -m pip install build pytest pytest-cov
@@ -38,7 +38,7 @@ jobs:
 
       # Run the test coverage for the build
       - name: Run tests and generate coverage html
-        run: (cd tests && ./run_tests.sh CI --cov=cs107_package --cov-report=html:htmlcov)
+        run: (cd tests && ./run_tests.sh CI --cov=group9_package --cov-report=html:htmlcov)
 
       # Remove .gitignore file in test coverage data to be pushed to gh-pages
       # branch
