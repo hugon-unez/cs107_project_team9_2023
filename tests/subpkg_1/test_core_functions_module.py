@@ -6,7 +6,7 @@ from astropy.table import Table
 from astropy.utils.diff import report_diff_values
 from astroquery.exceptions import RemoteServiceError, TimeoutError
 from requests.exceptions import RequestException
-from src.group9_package.subpkg_1.core_functions_module import SpectralAnalysisBase
+from group9_package.subpkg_1.core_functions_module import SpectralAnalysisBase
 
 class TestSpectralAnalysisBase():
     """A class for testing our methods in the base class"""

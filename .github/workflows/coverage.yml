@@ -22,24 +22,31 @@ jobs:
     steps:
       # Checkout the head of branch (what you just pushed)
       - uses: actions/checkout@v3
+
       # Setup Python environment in the container
       - uses: actions/setup-python@v3
         with:
           python-version: '3.10' # let's use a recent version
-      - name: Install Python dependencies
-        run: pip install pytest && pip install pytest-cov && pip install astropy
-      - name: Set PYTHONPATH
-        run: export PYTHONPATH="$(pwd -P)/src":${PYTHONPATH}
-      - name: Run test suite with coverage
-        run: |
-          pytest --cov=src/group9_package --cov-report=xml
-      - name: Check test coverage
-        run: |
-          coverage=$(xmlstarlet sel -t -v "sum(//report/data/coverage[starts-with(@name, 'src/group9_package')]/@value)") # Extracting coverage percentage
-          if (( $(echo "$coverage > 90" | bc -l) )); then
-            echo "Coverage is above 90%"
-            exit 0 # Pass the workflow
-          else
-            echo "Coverage is below 90%"
-            exit 1 # Fail the workflow
-          fi
+          
+      # Install Python dependencies
+      - name: Install dependencies
+        run: python -m pip install build pytest pytest-cov
+
+      # Build and install our package in the container
+      - name: Build and install the cs107_project in the container (using PEP517/518)
+        run: (python -m build --wheel && python -m pip install dist/*)
+
+      # Run the test coverage for the build
+      - name: Run tests and generate coverage html
+        run: (cd tests && ./run_tests.sh CI --cov=cs107_package --cov-report=html:htmlcov)
+
+      # Remove .gitignore file in test coverage data to be pushed to gh-pages
+      # branch
+      - name: Clean .gitignore in coverage output
+        run: rm -f tests/htmlcov/.gitignore
+
+      # Deploy to gh-pages branch
+      - name: Deploy test coverage GitHub page
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: tests/htmlcov
