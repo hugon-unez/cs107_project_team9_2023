@@ -41,18 +41,18 @@ class SpectralAnalysisBase:
         except (RemoteServiceError, TimeoutError, ValueError) as e:
             print(f"Query Error: {e}")
             raise
-        # except RequestException as e:
-        #     print(f"RequestException: {e}")
-        #     raise
+        except RequestException as e:
+            print(f"RequestException: {e}")
+            raise
         else:
             print("Query executed successfully and result stored in data attribute.")
         
 
 
-# def main():
-#     query = "select top 10 ra, dec, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
-#     analysis_instance = SpectralAnalysisBase(query)
-#     analysis_instance.execute_query()
+def main():
+    query = "select top 10 ra, dec, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
+    analysis_instance = SpectralAnalysisBase(query)
+    analysis_instance.execute_query()
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
