@@ -30,6 +30,6 @@ jobs:
       - name: Install Python dependencies
         run: pip install pytest && pip install astropy
       - name: Set PYTHONPATH
-        run: export PYTHONPATH="$(pwd -P)/":${PYTHONPATH}
+        run: export PYTHONPATH="$(pwd -P)":${PYTHONPATH}
       - name: Run test suite
         run: pytest -q tests
