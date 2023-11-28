@@ -14,6 +14,9 @@ on:
   push:
     branches:
       - "**"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
   
 jobs:
   test_code_coverage_core_functions_module:
@@ -35,6 +38,10 @@ jobs:
       # Build and install our package in the container
       - name: Build and install the cs107_project in the container (using PEP517/518)
         run: (python -m build --wheel && python -m pip install dist/*)
+
+      # Set execute permissions on the script file
+      - name: Set execute permissions on run_tests.sh
+        run: chmod +x tests/run_tests.sh
 
       # Run the test coverage for the build
       - name: Run tests and generate coverage html
