@@ -28,12 +28,14 @@ jobs:
           python-version: '3.10' # let's use a recent version
       - name: Install Python dependencies
         run: pip install pytest && pip install pytest-cov && pip install astropy
+      - name: Set PYTHONPATH
+        run: export PYTHONPATH="$(pwd -P)/src":${PYTHONPATH}
       - name: Run test suite with coverage
         run: |
-          pytest --cov=src/tests/subpkg1 --cov-report=xml
+          pytest --cov=src/tests/subpkg_1 --cov-report=xml
       - name: Check test coverage
         run: |
-          coverage=$(xmlstarlet sel -t -v "sum(//report/data/coverage[starts-with(@name, 'src/tests/subpkg1')]/@value)") # Extracting coverage percentage
+          coverage=$(xmlstarlet sel -t -v "sum(//report/data/coverage[starts-with(@name, 'src/tests/subpkg_1')]/@value)") # Extracting coverage percentage
           if (( $(echo "$coverage > 90" | bc -l) )); then
             echo "Coverage is above 90%"
             exit 0 # Pass the workflow
