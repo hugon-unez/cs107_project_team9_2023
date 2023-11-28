@@ -28,6 +28,8 @@ jobs:
           python-version: '3.10' # let's use a recent version
       - name: Install Python dependencies
         run: pip install pytest && pip install pytest-cov && pip install astropy
+      - name: Set PYTHONPATH
+        run: export PYTHONPATH="$(pwd -P)/src":${PYTHONPATH}
       - name: Run test suite with coverage
         run: |
           pytest --cov=src/group9_package --cov-report=xml
