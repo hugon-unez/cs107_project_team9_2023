@@ -43,4 +43,4 @@ jobs:
 
       # Run the tests for the installed package
       - name: Run tests
-        run: (cd tests && ./run_tests.sh pytest)
+        run: (cd tests && tests/run_tests.sh pytest)
