@@ -38,5 +38,5 @@ jobs:
         run: (python -m build --wheel && python -m pip install dist/*)
 
       # Run the tests for the installed package
-      - name: Run tests
-        run: (cd tests && ./run_tests.sh pytest)
+      - name: Run tests using test harness
+        run: (cd tests && ./run_tests.sh CI)
