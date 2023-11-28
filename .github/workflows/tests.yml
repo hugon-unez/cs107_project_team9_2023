@@ -37,6 +37,10 @@ jobs:
       # - name: Build and install the cs107_project in the container (using PEP517/518)
       #   run: (python -m build --wheel && python -m pip install dist/*)
 
+      # Get path
+      - name: Get path
+        run: pwd
+
       # Run the tests for the installed package
       - name: Run tests
         run: (cd tests && ./run_tests.sh pytest)
