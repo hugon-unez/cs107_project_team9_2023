@@ -29,7 +29,7 @@ jobs:
       # Setup Python environment in the container
       - uses: actions/setup-python@v3
         with:
-          python-version: '3.10' # let's use a recent version
+          python-version: '3.11' # let's use a recent version
       # set python path
       - name: Set PYTHONPATH
         run: export PYTHONPATH="$(pwd -P)/src":${PYTHONPATH}
