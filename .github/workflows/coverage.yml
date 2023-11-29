@@ -42,6 +42,7 @@ jobs:
       # Check coverage and fail if below 90%
       - name: Check code coverage
         run: |
+          pwd
           coverage=$(pytest --cov --cov-report term-missing | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
           if [ $coverage -lt 90 ]; then
             echo $coverage
