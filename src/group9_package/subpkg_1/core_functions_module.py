@@ -79,18 +79,19 @@ class MetaDataExtractor(SpectralAnalysisBase):
     def extract_chemical_abundances(self):
         # extracts chemical abundances 
         # assume the chemical abundances are stored in specific columns in the data
-        if self.data is None:
+        chemicalAbundancesCol = ['bestObjID', 'elodieFeH']
+        if self.data is None or not all(item in self.data.colnames  for item in chemicalAbundancesCol):
             raise ValueError("No data available to extract chemical abundances.")
         
         # find the actual column name in dataset
-        chemical_abundances = self.data['bestObjID','chemical_abundance_column']
+        chemical_abundances = self.data['bestObjID','elodieFeH']
         return chemical_abundances
 
     def extract_redshifts(self):
         # extracts redshift values
-        redshiftsCol = ['bestObjID','z'] 
+        redshiftsCol = ['bestObjID','elodieZ'] 
         if self.data is None or not all(item in self.data.colnames for item in redshiftsCol):
             raise ValueError("No data available to extract redshifts.")
         
-        redshifts = self.data['bestObjID','z']
+        redshifts = self.data['bestObjID','elodieZ']
         return redshifts
