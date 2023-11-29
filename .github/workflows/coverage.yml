@@ -14,6 +14,9 @@ on:
   push:
     branches:
       - "**"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
   
 jobs:
   test_code_coverage_core_functions_module:
@@ -22,22 +25,30 @@ jobs:
     steps:
       # Checkout the head of branch (what you just pushed)
       - uses: actions/checkout@v3
+
       # Setup Python environment in the container
       - uses: actions/setup-python@v3
         with:
           python-version: '3.10' # let's use a recent version
-      - name: Install Python dependencies
-        run: pip install pytest && pip install pytest-cov && pip install astropy
-      - name: Run test suite with coverage
+
+      # Install Python dependencies
+      - name: Install dependencies
+        run: python -m pip install build pytest pytest-cov
+
+      # Build and install our package in the container
+      - name: Build and install the group9_package in the container (using PEP517/518)
+        run: (python -m build --wheel && python -m pip install dist/*)
+
+      # Check coverage and fail if below 90%
+      - name: Check code coverage
         run: |
-          pytest --cov=src/group9_package --cov-report=xml
-      - name: Check test coverage
-        run: |
-          coverage=$(xmlstarlet sel -t -v "sum(//report/data/coverage[starts-with(@name, 'src/group9_package')]/@value)") # Extracting coverage percentage
-          if (( $(echo "$coverage > 90" | bc -l) )); then
-            echo "Coverage is above 90%"
-            exit 0 # Pass the workflow
-          else
-            echo "Coverage is below 90%"
-            exit 1 # Fail the workflow
+          coverage=$(pytest --cov=group9_package --cov-report term-missing | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
+          if [ $coverage -lt 90 ]; then
+            echo $coverage
+            echo "Code coverage is less than 90%."
+            pytest --cov=group9_package --cov-report term-missing
+            pwd
+            cat src/group9_package/subpkg_1/core_functions_module.py
+            git log -1
+            false
           fi
