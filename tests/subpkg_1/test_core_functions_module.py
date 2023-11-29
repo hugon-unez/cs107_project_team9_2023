@@ -4,7 +4,7 @@ import pytest
 from astroquery.sdss import SDSS
 from astropy.table import Table, Column
 from astropy.utils.diff import report_diff_values
-from src.group9_package.subpkg_1.core_functions_module import SpectralAnalysisBase, MetaDataExtractor
+from group9_package.subpkg_1.core_functions_module import SpectralAnalysisBase, MetaDataExtractor
 
 class TestSpectralAnalysisBase():
     """A class for testing our methods in the base class"""
