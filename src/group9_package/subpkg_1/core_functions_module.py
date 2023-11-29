@@ -47,12 +47,50 @@ class SpectralAnalysisBase:
         else:
             print("Query executed successfully and result stored in data attribute.")
         
+class MetaDataExtractor(SpectralAnalysisBase):
+    def __init__(self, query, data=None):
+        # Initializes MetadataExtractor class
 
+        #    Args:
+        #     query (str): String parameter containing an ADQL query to query the SDSS database
+        #     data (astropy.table.Table, optional): Optional parameter to input spectral data as Astropy Table object
+        #         Default = None.
+        
+        super().__init__(query, data)
 
-def main():
-    query = "select top 10 ra, dec, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
-    analysis_instance = SpectralAnalysisBase(query)
-    analysis_instance.execute_query()
+    def extract_identifiers(self):
+        # extracts identifiers from the data
+        if self.data is None or 'bestObjID' not in self.data.colnames:
+            raise ValueError("No data available to extract identifiers.")
+        
+        identifiers = self.data['bestObjID']
+        return identifiers
 
-if __name__ == "__main__":
-    main()
+    def extract_coordinates(self):
+        # extracts coordinates from the data
+        coordinatesCol = ['bestObjID', 'ra', 'dec']
+        if self.data is None or not all(item in self.data.colnames  for item in coordinatesCol):
+            raise ValueError("No data available to extract coordinates.")
+        
+        coordinates = self.data['bestObjID', 'ra', 'dec']
+        return coordinates
+
+    # below needs to be adjusted for correct chemical abundance colums
+    def extract_chemical_abundances(self):
+        # extracts chemical abundances 
+        # assume the chemical abundances are stored in specific columns in the data
+        if self.data is None:
+            raise ValueError("No data available to extract chemical abundances.")
+        
+        # find the actual column name in dataset
+        chemical_abundances = self.data['bestObjID','chemical_abundance_column']
+        return chemical_abundances
+
+    def extract_redshifts(self):
+        # extracts redshift values
+        redshiftsCol = ['bestObjID','z'] 
+        if self.data is None or not all(item in self.data.colnames for item in redshiftsCol):
+            raise ValueError("No data available to extract redshifts.")
+        
+        redshifts = self.data['bestObjID','z']
+        return redshifts
