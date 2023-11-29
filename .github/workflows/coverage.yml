@@ -44,6 +44,7 @@ jobs:
         run: |
           coverage=$(pytest --cov=group9_package | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
           if [ $coverage -lt 90 ]; then
+            echo $coverage
             echo "Code coverage is less than 90%."
             exit 1
           fi
