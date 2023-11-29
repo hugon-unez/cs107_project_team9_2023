@@ -42,9 +42,10 @@ jobs:
       # Check coverage and fail if below 90%
       - name: Check code coverage
         run: |
-          coverage=$(pytest --cov=group9_package | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
+          coverage=$(pytest --cov=group9_package --cov-report term-missing | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
           if [ $coverage -lt 90 ]; then
             echo $coverage
             echo "Code coverage is less than 90%."
+            pytest --cov=group9_package --cov-report term-missing
             false
           fi
