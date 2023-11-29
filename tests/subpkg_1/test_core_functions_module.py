@@ -72,7 +72,7 @@ class TestSpectralAnalysisMetaDataExtractor():
 
 
     def test_extract_methods(self):
-        query = "select top 10 ra, dec, z, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
+        query = "select top 10 ra, dec, elodieZ, bestObjID, elodieFeH from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
         astro = MetaDataExtractor(query)
 
         #test value errors are raised if query is never executed
@@ -95,25 +95,25 @@ class TestSpectralAnalysisMetaDataExtractor():
 
         identifiers = astro.extract_identifiers()
         coordinates = astro.extract_coordinates()
-        #chemicalAbundances = astro.extract_chemical_abundances()
+        chemicalAbundances = astro.extract_chemical_abundances()
         redshifts = astro.extract_redshifts()
 
         #assert return types are correct and standardized 
         assert type(identifiers) == Column
         assert type(coordinates) == Table
-        #assert type(chemicalAbundances) == Table
+        assert type(chemicalAbundances) == Table
         assert type(redshifts) == Table
 
         #assert each Table has at least necessary column headers
         identifiersCol = ['bestObjID']
         coordinatesCol = ['bestObjID', 'ra', 'dec']
-        #chemicalAbundancesCol = ['bestObjID', 'chemicalAbundance']
-        redshiftsCol = ['bestObjID','z']
+        chemicalAbundancesCol = ['bestObjID', 'elodieFeH']
+        redshiftsCol = ['bestObjID','elodieZ']
 
         assert identifiers.name in identifiersCol
-        assert all(item in coordinates.colnames  for item in coordinatesCol)
-        #assert chemicalAbundances.colnames in chemicalAbundancesCol
-        assert all(item in redshifts.colnames  for item in redshiftsCol)
+        assert all(item in coordinates.colnames for item in coordinatesCol)
+        assert all(item in chemicalAbundances.colnames for item in chemicalAbundancesCol)
+        assert all(item in redshifts.colnames for item in redshiftsCol)
 
         #query does not request bestObjID
         bad_query = "select top 10 ra, dec, z from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
