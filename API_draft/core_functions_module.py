@@ -40,13 +40,12 @@ class SpectralAnalysisBase:
             self.data = Table(result)
         except (RemoteServiceError, TimeoutError, ValueError) as e:
             print(f"Query Error: {e}")
-            raise
         except RequestException as e:
             print(f"RequestException: {e}")
-            raise
         else:
             print("Query executed successfully and result stored in data attribute.")
         
+
 class MetaDataExtractor(SpectralAnalysisBase):
     def __init__(self, query, data=None):
         # Initializes MetadataExtractor class
@@ -60,7 +59,7 @@ class MetaDataExtractor(SpectralAnalysisBase):
 
     def extract_identifiers(self):
         # extracts identifiers from the data
-        if self.data is None or 'bestObjID' not in self.data.colnames:
+        if self.data is None:
             raise ValueError("No data available to extract identifiers.")
         
         identifiers = self.data['bestObjID']
@@ -68,11 +67,10 @@ class MetaDataExtractor(SpectralAnalysisBase):
 
     def extract_coordinates(self):
         # extracts coordinates from the data
-        coordinatesCol = ['bestObjID', 'ra', 'dec']
-        if self.data is None or not all(item in self.data.colnames  for item in coordinatesCol):
+        if self.data is None:
             raise ValueError("No data available to extract coordinates.")
         
-        coordinates = self.data['bestObjID', 'ra', 'dec']
+        coordinates = self.data['ra', 'dec']
         return coordinates
 
     # below needs to be adjusted for correct chemical abundance colums
@@ -83,14 +81,22 @@ class MetaDataExtractor(SpectralAnalysisBase):
             raise ValueError("No data available to extract chemical abundances.")
         
         # find the actual column name in dataset
-        chemical_abundances = self.data['bestObjID','chemical_abundance_column']
+        chemical_abundances = self.data['chemical_abundance_column']
         return chemical_abundances
 
     def extract_redshifts(self):
-        # extracts redshift values
-        redshiftsCol = ['bestObjID','z'] 
-        if self.data is None or not all(item in self.data.colnames for item in redshiftsCol):
+        # extracts redshift values 
+        if self.data is None:
             raise ValueError("No data available to extract redshifts.")
         
-        redshifts = self.data['bestObjID','z']
+        redshifts = self.data['z']
         return redshifts
+
+
+def main():
+    query = "select top 10 ra, dec, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
+    analysis_instance = SpectralAnalysisBase(query)
+    analysis_instance.execute_query()
+
+if __name__ == "__main__":
+    main()
