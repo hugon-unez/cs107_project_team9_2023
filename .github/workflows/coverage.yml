@@ -46,7 +46,7 @@ jobs:
       - name: Check code coverage
         run: |
           pwd
-          coverage=$(pytest -p no:cacheprovider --cov --cov-report term-missing tests/ | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)})
+          coverage=$(pytest -p no:cacheprovider --cov --cov-report term-missing tests/ | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
           if [ $coverage -lt 90 ]; then
             echo $coverage
             echo "Code coverage is less than 90%."
