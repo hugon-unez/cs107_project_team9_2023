@@ -81,7 +81,7 @@ class MetaDataExtractor(SpectralAnalysisBase):
             raise ValueError("No data available to extract chemical abundances.")
         
         # find the actual column name in dataset
-        chemical_abundances = self.data['FEHADOP']
+        chemical_abundances = self.data['elodieFeH']
         return chemical_abundances
         
 
@@ -90,7 +90,7 @@ class MetaDataExtractor(SpectralAnalysisBase):
         if self.data is None:
             raise ValueError("No data available to extract redshifts.")
         
-        redshifts = self.data['z']
+        redshifts = self.data['elodieZ']
         return redshifts
     
     # def extract_flux_values(self):
