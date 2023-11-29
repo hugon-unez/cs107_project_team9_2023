@@ -49,5 +49,6 @@ jobs:
             pytest --cov=group9_package --cov-report term-missing
             pwd
             cat src/group9_package/subpkg_1/core_functions_module.py
+            git log -1
             false
           fi
