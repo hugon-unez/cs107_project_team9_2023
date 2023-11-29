@@ -26,7 +26,7 @@ elif [[ $# -gt 0 && ${1} == 'CI' ]]; then
     unset PYTHONPATH
     driver="pytest ${@}"
 else
-    driver="python3 ${@} -m unittest"
+    driver="python ${@} -m unittest"
 fi
 
 # run the tests
