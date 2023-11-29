@@ -81,8 +81,9 @@ class MetaDataExtractor(SpectralAnalysisBase):
             raise ValueError("No data available to extract chemical abundances.")
         
         # find the actual column name in dataset
-        chemical_abundances = self.data['chemical_abundance_column']
+        chemical_abundances = self.data['FEHADOP']
         return chemical_abundances
+        
 
     def extract_redshifts(self):
         # extracts redshift values 
@@ -91,6 +92,31 @@ class MetaDataExtractor(SpectralAnalysisBase):
         
         redshifts = self.data['z']
         return redshifts
+    
+    # def extract_flux_values(self):
+    #     # extracts flux values from the data
+    #     if self.data is None:
+    #         raise ValueError("No data available to extract flux values.")
+
+    #     # Assuming the column for flux values is named 'flux'
+    #     flux_values = self.data['flux']
+    #     return flux_values
+
+    # def extract_spectral_line_data(self):
+    #     if self.data is None:
+    #         raise ValueError("No data available to extract spectral line data.")
+
+    #     spectral_lines = self.data['line_1', 'line_2', 'line_3']  # Modify as per actual column names
+    #     return spectral_lines
+
+    # def extract_magnitude_values(self):
+    #     if self.data is None:
+    #         raise ValueError("No data available to extract magnitude values.")
+
+    #     # Assuming the column for magnitude values is named 'magnitude'
+    #     magnitudes = self.data['magnitude']
+    #     return magnitudes
+
 
 
 def main():
