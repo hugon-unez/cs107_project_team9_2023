@@ -43,4 +43,4 @@ jobs:
 
       # Run the tests for the installed package
       - name: Run tests using test harness
-        run: (cd tests && ./run_tests.sh CI)
+        run: (cd tests && ./run_tests.sh pytest)
