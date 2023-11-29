@@ -1,14 +1,4 @@
 """This test module runs tests for core_functions_module.py"""
-import sys
-import os
-
-
-# Get the absolute path to the 'src' directory
-src_directory = os.path.abspath('src')
-
-# Add the 'src' directory to the PYTHONPATH
-os.environ['PYTHONPATH'] = f"{src_directory}:{os.environ.get('PYTHONPATH', '')}"
-
 import pytest
 from astroquery.sdss import SDSS
 from astropy.table import Table, Column
