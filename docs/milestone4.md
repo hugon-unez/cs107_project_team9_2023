@@ -11,7 +11,8 @@
 
 		- subpkg_1
 			- __init__.py
-			- core_functions_module.py
+			- core_functions_module_extract.py
+			- core_functions_module_modify.py
 			- visualization_module.py
 			- data_augmentation_module.py
 
