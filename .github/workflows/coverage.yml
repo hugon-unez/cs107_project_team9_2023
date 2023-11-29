@@ -47,8 +47,8 @@ jobs:
         run: |
           pwd
           coverage=$(pytest -p no:cacheprovider --cov --cov-report term-missing tests/ | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
+          echo "Code coverage: $coverage%"
           if [ $coverage -lt 90 ]; then
-            echo $coverage
             echo "Code coverage is less than 90%."
             pytest --cov=group9_package --cov-report term-missing
             pwd
