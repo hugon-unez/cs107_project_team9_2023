@@ -3,7 +3,7 @@
 
 [![.github/workflows/tests.yml](https://code.harvard.edu/CS107/team09_2023/actions/workflows/tests.yml/badge.svg)](https://code.harvard.edu/CS107/team09_2023/actions/workflows/tests.yml)
 
-# Core Functions Module
+# Core Functions Module Extract
 
 ## Class: Base
 Executes Query (if given) and stores data (from executed query or from passed argument) as an attribute.
@@ -11,17 +11,6 @@ Executes Query (if given) and stores data (from executed query or from passed ar
 ### Functions:
 - `__init__`: Initializes appropriate attributes.
 - `execute_query`: Executes the query (if given) and stores the data.
-
-## Class: DataPreprocessor
-Inherits Base Class.
-Manages data preprocessing tasks.
-
-### Functions:
-- `__init__`: Initializes appropriate attributes.
-- `normalize_data`: Normalizes the data either passed to the class or data from an executed query.
-- `remove_outliers`: Removes outliers from the data either passed to the class or data from an executed query.
-- `interpolate_data`: Performs interpolation on the data either passed to the class or data from an executed query.
-- `correct_redshift`: Adjusts the wavelengths of the spectral data based on the redshift values associated with each celestial object.
 
 ## Class: MetadataExtractor
 Inherits Base Class.
@@ -34,6 +23,8 @@ Extracts metadata from the spectral data.
 - `extract_chemical_abundances`: Extracts chemical abundances from the data either passed to the class or data from an executed query.
 - `extract_redshifts`: Extracts redshift values from the data either passed to the class or data from an executed query associated with each celestial object.
 
+# Core Functions Module Modify
+
 ## Class: WavelengthAlign
 Inherits Base Class.
 Aligns wavelength for all the spectra across a predefined range.
@@ -41,6 +32,17 @@ Aligns wavelength for all the spectra across a predefined range.
 ### Functions:
 - `__init__`: Initializes appropriate attributes.
 - `align_wavelengths`: The main function responsible for aligning the wavelengths. This could involve interpolation or resampling to ensure that all spectra share the same set of wavelengths within the predefined range.
+
+## Class: DataPreprocessor
+Inherits Base Class.
+Manages data preprocessing tasks.
+
+### Functions:
+- `__init__`: Initializes appropriate attributes.
+- `normalize_data`: Normalizes the data either passed to the class or data from an executed query.
+- `remove_outliers`: Removes outliers from the data either passed to the class or data from an executed query.
+- `interpolate_data`: Performs interpolation on the data either passed to the class or data from an executed query.
+- `correct_redshift`: Adjusts the wavelengths of the spectral data based on the redshift values associated with each celestial object.
 
 # Visualization Module
 

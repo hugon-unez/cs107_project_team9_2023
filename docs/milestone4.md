@@ -7,35 +7,36 @@
 
 - src
 	- group9_package
-		- __init__.py
+		- \_\_init\_\_.py
 
 		- subpkg_1
-			- __init__.py
+			- \_\_init\_\_.py
 			- core_functions_module_extract.py
 			- core_functions_module_modify.py
 			- visualization_module.py
 			- data_augmentation_module.py
 
 		- subpkg_2
-			- __init__.py
+			- \_\_init\_\_.py
 			- machine_learning_module.py
 			- cross_matching_module.py
 
 - tests
 	- subpkg_1
-		- test_core_functions_module.py
+		- test_core_functions_module_extract.py
 			- Class TestBase
 				- def test_execute_query
-			- Class TestDataPreprocessor
-				- def test_normalize_data
-				- def test_remove_outliers
-				- def test_interpolate_data
-				- def test_correct_redshift
 			- Class TestMetadataExtractor
 				- def test_extract_identifiers
 				- def test_extract_coordinates	
 				- def test_extract_chemical_abundances
 				- def test_extract_redshifts
+		- test_core_functions_module_modify.py
+			- Class TestDataPreprocessor
+				- def test_normalize_data
+				- def test_remove_outliers
+				- def test_interpolate_data
+				- def test_correct_redshift
 			- Class TestWavelengthAlign
 				- def test_align_wavelengths
 		-  test_visualization_module.py

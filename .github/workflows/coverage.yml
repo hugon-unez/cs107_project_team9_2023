@@ -30,6 +30,7 @@ jobs:
       - uses: actions/setup-python@v3
         with:
           python-version: '3.11' # trying to break ci
+          
       # set python path
       - name: Set PYTHONPATH
         run: export PYTHONPATH="$(pwd -P)/src":${PYTHONPATH}
