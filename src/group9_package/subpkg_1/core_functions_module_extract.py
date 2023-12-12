@@ -99,7 +99,7 @@ class MetaDataExtractor(SpectralAnalysisBase):
         
         redshifts = self.data['bestObjID','elodieZ']
         return redshifts
-
+    
 class SpectraExtract(SpectralAnalysisBase):
     def __init__(self, data_row):
         if not isinstance(data_row, Table.Row):
