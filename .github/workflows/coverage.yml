@@ -42,6 +42,12 @@ jobs:
       - name: Build and install the group9_package in the container (using PEP517/518)
         run: (python -m build --wheel && python -m pip install dist/*)
 
+      - name: Debugging
+        run: |
+          pwd
+          ls -R
+          python -m pip list
+
       # Check coverage and fail if below 90%
       - name: Check code coverage
         run: |
