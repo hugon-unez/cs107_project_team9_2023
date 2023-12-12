@@ -25,6 +25,8 @@ jobs:
     steps:
       # Checkout the head of branch (what you just pushed)
       - uses: actions/checkout@v3
+        with:
+         fetch-depth: 0
 
       # Setup Python environment in the container
       - uses: actions/setup-python@v3
@@ -41,6 +43,11 @@ jobs:
       # Build and install our package in the container
       - name: Build and install the group9_package in the container (using PEP517/518)
         run: (python -m build --wheel && python -m pip install dist/*)
+      
+      #make sure running most recent commit
+      - name: Print Commit SHA
+        run: | 
+          echo "Commit SHA: $GITHUB_SHA"
 
       # Check coverage and fail if below 90%
       - name: Check code coverage
