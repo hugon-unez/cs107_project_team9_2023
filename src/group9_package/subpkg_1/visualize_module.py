@@ -4,10 +4,9 @@
 # License    : GNU General Public License, version 3
 # Copyright 2023 Harvard University. All Rights Reserved.
 
-
-import matplotlib
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 from core_functions_module_extract import SpectraExtract
 from astropy.table import Table
 
@@ -23,3 +22,23 @@ class SpectralVisualizer:
 
         self.row = row
         self.data = data if data is not None else pd.DataFrame()  # Initialize data attribute
+
+    def visualize(self):
+        if self.data.empty and self.row is not None:
+            spectra_extractor = SpectraExtract(self.row)
+            self.data = spectra_extractor.extract_spectra()
+
+
+        if self.data.empty:
+            raise ValueError("Both 'data' and 'row' are None or empty. Provide either 'data' or 'row' with valid data.")
+
+
+        # Assuming 'Wavelength' and 'Flux' are column names in the DataFrame
+        x = self.data['Wavelength']
+        y = self.data['Flux']
+
+        plt.plot(x, y)
+        plt.xlabel('Wavelength')
+        plt.ylabel('Flux')
+        plt.title('Spectral Visualization')
+        plt.show()
