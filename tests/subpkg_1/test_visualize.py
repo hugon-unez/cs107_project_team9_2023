@@ -74,6 +74,5 @@ class TestVisualizer():
 
         # Reset the backend to the default
         plt.close('all')
-        matplotlib.use('TkAgg')
             
 
