@@ -10,8 +10,6 @@ import matplotlib.pyplot as plt
 from group9_package.subpkg_1.core_functions_module_extract import SpectraExtract
 from astropy.table import Table
 
-
-
 class SpectralVisualizer:
     def __init__(self, *, row=None, data=None):
         if (row is not None and not isinstance(row, Table.Row)) or (data is not None and not isinstance(data, pd.DataFrame)):
