@@ -8,6 +8,10 @@ from astroquery.sdss import SDSS
 from astropy.table import Table
 from astroquery.exceptions import RemoteServiceError, TimeoutError
 from requests.exceptions import RequestException
+import pandas as pd
+import requests
+import io
+import time
 
 class SpectralAnalysisBase:
     def __init__(self, query, data=None):
@@ -95,3 +99,46 @@ class MetaDataExtractor(SpectralAnalysisBase):
         
         redshifts = self.data['bestObjID','elodieZ']
         return redshifts
+
+class SpectraExtract(SpectralAnalysisBase):
+    def __init__(self, data_row):
+        if not isinstance(data_row, Table.Row):
+            raise TypeError("The input must be an astropy.table.Row")
+    
+        # check we have the proper identifiers to query
+        required_columns = ['plate', 'mjd', 'fiberid']
+        missing_columns = [col for col in required_columns if col not in data_row.colnames]
+
+        # raise value error if not
+        if missing_columns:
+            raise ValueError(f"The input row is missing required columns: {missing_columns}")
+        
+        # if data is proper, save row to self
+        self.row = data_row
+        
+    def extract_spectra(self):
+        # Initialize values to query
+        row = self.row
+        plate = row['plate']
+        mjd = row['mjd']
+        fiberid = row['fiberid']
+
+        # Use initialized values for url
+        url = f'http://dr18.sdss.org/optical/spectrum/view/data/format=csv/spec=lite?plateid={plate}&mjd={mjd}&fiberid={fiberid}'
+
+        # Since site is faulty, retry a few times - error 500 is common even with a correct query
+        retries = 5  
+        delay = 2  
+
+        for i in range(retries):
+            response = requests.get(url)
+
+            if response.status_code == 200:
+                df = pd.read_csv(io.StringIO(response.text))
+                print('Successful Query!')
+                return df
+            else:
+                print(f'Request failed with status code: {response.status_code}. Retrying...')
+                time.sleep(delay)  # Adding a delay before the next retry
+
+        print(f'Request failed after {retries} retries. Ensure proper row was input or try again later.')

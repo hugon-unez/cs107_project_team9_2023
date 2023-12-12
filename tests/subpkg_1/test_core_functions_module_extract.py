@@ -3,7 +3,7 @@ import pytest
 from astroquery.sdss import SDSS
 from astropy.table import Table, Column
 from astropy.utils.diff import report_diff_values
-from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase, MetaDataExtractor
+from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase, MetaDataExtractor, SpectraExtract
 
 class TestSpectralAnalysisBase():
     """A class for testing our methods in the base class"""
@@ -55,6 +55,23 @@ class TestSpectralAnalysisBase():
 
         with pytest.raises(ValueError):
             astro = SpectralAnalysisBase(query,data=[])
+
+class TestSpectraExtract():
+    def test_spectra_extract(self):
+        # Create an instance of spectraExtract with sample data from sdss docs
+        sample_row = {'plate': 15150, 'mjd': 59291, 'fiberid': 1}
+
+        extractor = SpectraExtract(sample_row)
+
+        data = extractor.get_spectra()
+
+        # make sure dataframe not empty
+        self.assertTrue(not data.empty, "DataFrame should not be empty")
+
+        # make sure dataframe has correct columns
+        self.assertCountEqual(['Wavelength', 'Flux', 'BestFit', 'SkyFlux'], data.columns.tolist())
+
+
 
 class TestSpectralAnalysisMetaDataExtractor():
     """A class for testing our methods in the base class"""
@@ -121,3 +138,4 @@ class TestSpectralAnalysisMetaDataExtractor():
         #test value errors are raised if required column is not present
         with pytest.raises(ValueError):
             astro1.extract_identifiers()
+
