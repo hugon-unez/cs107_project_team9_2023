@@ -22,6 +22,11 @@ class DataPreprocessor(SpectralAnalysisBase):
 
         #Similar to pp6 in that we're turning the query into a pandas dataframe
         self.query = query
+
+        if not isinstance(data, pd.DataFrame):
+            raise ValueError("Input data must be a pandas DataFrame")
+
+
         self.data = data
 
         job = SDSS.query_sql(self.query)
@@ -55,6 +60,9 @@ class DataPreprocessor(SpectralAnalysisBase):
 #and you want to estimate the values at positions that are not explicitly provided.
     def interpolate_data(self, new_wavelengths):
         if self.data is not None:
+            if len(new_wavelengths) != len(self.data.index):
+                raise ValueError("Length of new_wavelengths does not match length of index")
+            
             for header in self.column_headers:
                 #spectral data probably observes non-linear relationship
                 interp_function = interp1d(self.data.index, self.data[header], kind='cubic', fill_value="extrapolate", bounds_error=False )
@@ -81,6 +89,8 @@ class DataPreprocessor(SpectralAnalysisBase):
             #wikipedia says equation is (1+z = obs. wavelength / emitted wavelength)
             #Rearranged equation to get emitted wavelength
             for band in bands:
+                if band not in self.data.columns:
+                    continue  # Skip bands not present in the data
                 corrected_values = self.data[band] / (1 + self.data['z'])
                 self.data[band] = corrected_values
         else:
