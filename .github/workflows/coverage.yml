@@ -35,6 +35,10 @@ jobs:
       - name: Clear Python Cache
         run: |
           python -m pip cache purge
+
+      #Clean build to ensure new build
+      - name: Clean Build Directory
+        run: rm -rf build dist
       
       # set python path
       - name: Set PYTHONPATH
