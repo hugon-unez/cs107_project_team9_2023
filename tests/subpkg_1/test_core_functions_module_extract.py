@@ -1,7 +1,9 @@
 """This test module runs tests for core_functions_module.py"""
 import pytest
+import unittest
+import numpy as np
 from astroquery.sdss import SDSS
-from astropy.table import Table, Column
+from astropy.table import Table, Column, Row
 from astropy.utils.diff import report_diff_values
 from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase, MetaDataExtractor, SpectraExtract
 
@@ -56,22 +58,23 @@ class TestSpectralAnalysisBase():
         with pytest.raises(ValueError):
             astro = SpectralAnalysisBase(query,data=[])
 
-class TestSpectraExtract():
+class TestSpectraExtract(unittest.TestCase):
     def test_spectra_extract(self):
         # Create an instance of spectraExtract with sample data from sdss docs
-        sample_row = {'plate': 15150, 'mjd': 59291, 'fiberid': 1}
 
-        extractor = SpectraExtract(sample_row)
+        # sample_row = Row({'plate': 15150, 'mjd': 59291, 'fiberid': 1})
+        row_data = {'plate': np.array([15150]), 'mjd': np.array([59291]), 'fiberid': np.array([1])}
+        table = Table(row_data, names=('plate', 'mjd', 'fiberid'))
 
-        data = extractor.get_spectra()
+        extractor = SpectraExtract(table[0])
+
+        data = extractor.extract_spectra()
 
         # make sure dataframe not empty
-        self.assertTrue(not data.empty, "DataFrame should not be empty")
+        self.assertFalse(data.empty, "DataFrame should not be empty")
 
         # make sure dataframe has correct columns
         self.assertCountEqual(['Wavelength', 'Flux', 'BestFit', 'SkyFlux'], data.columns.tolist())
-
-
 
 class TestSpectralAnalysisMetaDataExtractor():
     """A class for testing our methods in the base class"""
