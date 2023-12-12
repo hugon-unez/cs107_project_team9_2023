@@ -95,3 +95,34 @@ class MetaDataExtractor(SpectralAnalysisBase):
         
         redshifts = self.data['bestObjID','elodieZ']
         return redshifts
+
+class SpectraExtract(SpectralAnalysisBase):
+    def __init__(self, data_row):
+        if not isinstance(data_row, Table.Row):
+            raise TypeError("The input must be an astropy.table.Row")
+        self.row = data_row
+        
+    def extract_spectra(self):
+        row = self.row
+        plate = row['plate']
+        mjd = row['mjd']
+        fiberid = row['fiberid']
+
+        print(plate,mjd,fiberid)
+
+
+
+
+if __name__ == '__main__':
+    data = {'plate': ['Alice', 'Bob', 'Charlie'],
+        'mjd': [25, 30, 22],
+        'fiberid': ['New York', 'San Francisco', 'Los Angeles']}
+
+    table = Table(data)
+
+    # Accessing a row (an astropy.table.Row)
+    first_row = table[0]
+    print(type(first_row))
+
+    spectra = SpectraExtract(first_row)
+    spectra.extract_spectra()
