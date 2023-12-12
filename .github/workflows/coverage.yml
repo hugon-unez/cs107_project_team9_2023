@@ -30,6 +30,12 @@ jobs:
       - uses: actions/setup-python@v3
         with:
           python-version: '3.11' # trying to break ci     
+      
+      # Clear Python Cache to Ensure most recent package builds
+      - name: Clear Python Cache
+        run: |
+          python -m pip cache purge
+      
       # set python path
       - name: Set PYTHONPATH
         run: export PYTHONPATH="$(pwd -P)/src":${PYTHONPATH}
@@ -37,7 +43,7 @@ jobs:
       # Install Python dependencies
       - name: Install dependencies
         run: python -m pip install build pytest pytest-cov astroquery
-
+      
       # Build and install our package in the container
       - name: Build and install the group9_package in the container (using PEP517/518)
         run: (python -m build --wheel && python -m pip install dist/*)
