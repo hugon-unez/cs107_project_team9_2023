@@ -6,5 +6,9 @@ Specifically, for Annex A: 3.A - we made edits to how data preprocessing is goin
 
 For Annex 3.B: our updates to include the class label ensures that each row has a label. Adding more data makes a more adaptable and usable table for different purposes. Some of these purposes include machine learning classification and visualization. This adaptability increases the integration, since our machine learning module will be classifiying based on label. Without this change, we would not a functional machine learning module, highlighting the importance of this change.
 
+Finally, for Annex 3.C, we clarified the return type for our function. By ensuring we return flux, this enables the wavelength align function to be better used in conjunction with other functions, increasing integration with visualization module specifically. Additionally, the wavelength align module becomes more more user friendly with the presented clarifications, since it is more clear to the user how to use this function.
 
+modules to be evaluated for integration:
+- core_functions_module_extract
+- core_functions_module_modify
 
