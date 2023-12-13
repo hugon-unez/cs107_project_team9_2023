@@ -141,4 +141,5 @@ class SpectraExtract(SpectralAnalysisBase):
                 print(f'Request failed with status code: {response.status_code}. Retrying...')
                 time.sleep(delay)  # Adding a delay before the next retry
 
+        #print failure message
         print(f'Request failed after {retries} retries. Ensure proper row was input or try again later.')

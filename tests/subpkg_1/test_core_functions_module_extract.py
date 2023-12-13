@@ -141,4 +141,3 @@ class TestSpectralAnalysisMetaDataExtractor():
         #test value errors are raised if required column is not present
         with pytest.raises(ValueError):
             astro1.extract_identifiers()
-
