@@ -1,9 +1,7 @@
 import unittest
 from unittest.mock import patch
 from astropy.table import Table
-import pandas as pd
-import numpy as np
-from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase, MetaDataExtractor, DataPreprocessor
+from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase, MetaDataExtractor
 from astroquery.exceptions import RemoteServiceError, TimeoutError
 from requests.exceptions import RequestException
 
