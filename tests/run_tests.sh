@@ -9,6 +9,7 @@ tests=(
     subpkg_1/test_core_functions_module_extract.py
     subpkg_1/test_visualize.py
     subpkg_1/test_unittests_core_function_module.py
+    subpkg_1/test_unittests_core_function_modify.py
 )
 
 # Must add the module source path because we use `import group9_package` in
