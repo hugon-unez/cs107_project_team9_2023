@@ -10,7 +10,7 @@
 		- \_\_init\_\_.py
 
 		- subpkg_1
-			- __init__.py
+			- \_\_init\_\_.py
 			- core_functions_module_extract.py
 			- core_functions_module_modify.py
 			- visualization_module.py
