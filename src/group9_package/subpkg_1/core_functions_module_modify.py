@@ -23,7 +23,7 @@ class DataPreprocessor(SpectralAnalysisBase):
     #peaks or troughs of the electromagnetic wave.
 
     #User is expected to provide the query
-    def __init__(self, query, data):
+    def __init__(self, query, data=None):
 
         #Similar to pp6 in that we're turning the query into a pandas dataframe
         self.query = query
@@ -31,11 +31,7 @@ class DataPreprocessor(SpectralAnalysisBase):
         if not isinstance(data, pd.DataFrame):
             raise ValueError("Input data must be a pandas DataFrame")
 
-
-        self.data = data
-
         job = SDSS.query_sql(self.query)
-        #r = job.get_results()
         self.data = job.to_pandas()
 
         self.column_headers = list(self.data.columns)
