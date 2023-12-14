@@ -1,27 +1,35 @@
 from astroquery.gaia import Gaia
-from astroquery.sdss import SDSS
 import pandas as pd
 
 class CrossMatchingModule:
-    def __init__(self, gaia_query, sdss_query):
-        self.gaia_query = gaia_query
-        self.sdss_query = sdss_query
+    def __init__(self):
+        pass
 
-    def cross_match(self):
-        # Query Gaia
-        gaia_job = Gaia.launch_job(self.gaia_query)
-        gaia_results = gaia_job.get_results()
-        gaia_data = gaia_results.to_pandas()
+    def cross_match(self, angular_distance_max, sourceid):
+        # Define the table name
+        table_name = 'sdssdr13_best_neighbour'
 
-        # Query SDSS
-        sdss_job = SDSS.query_sql(self.sdss_query)
-        sdss_data = sdss_job.to_pandas()
+        # Construct the query string using f-string
+        query = f"SELECT angular_distance, original_ext_source_id FROM {table_name} WHERE source_id = {sourceid}"
 
-        # Perform Cross-Matching. How do we know what columns to merge on? Just have ra as placeholder but unsure
-        merged_data = pd.merge(gaia_data, sdss_data, how='inner', on='ra' )
+        # Execute the query using astroquery.gaia
+        job = Gaia.launch_job(query)
+        results = job.get_results()
 
-        # Example: Keep only matches with a certain magnitude difference
-        magnitude_difference_threshold = 0.1
-        filtered_data = merged_data[abs(merged_data['gaia_magnitude'] - merged_data['sdss_magnitude']) < magnitude_difference_threshold]
+        # Convert results to a pandas DataFrame
+        df = pd.DataFrame(results)
 
-        return filtered_data
+        # Filter results based on angular distance upper bound
+        pure_df = df[df['angular_distance'] <= angular_distance_max]
+
+        return pure_df
+
+# Example usage:
+cross_match_module = CrossMatchingModule()
+angular_distance_upper_bound = 2.0
+#Example source id
+source_id_to_query = 123456789  
+result_dataframe = cross_match_module.cross_match(angular_distance_upper_bound, source_id_to_query)
+
+# Display the result
+print(result_dataframe)
