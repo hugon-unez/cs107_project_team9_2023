@@ -68,20 +68,16 @@ class TestDataPreprocessor(unittest.TestCase):
     # Test interpolation
     @patch('group9_package.subpkg_1.core_functions_module_extract.SDSS.query_sql')
     def test_interpolate_data(self, mock_query_sql):
-        data = pd.DataFrame({'ra': [1, 2, 3], 'u': [7, 8, 9], 'g': [10, 11, 12], 'r': [13, 14, 15], 'i': [16, 17, 18], 'z': [0.4, 0.5, 0.6]})
+        data = pd.DataFrame({'ra': [1, 2, 3,7], 'u': [7, 8, 9,15]})
         mock_query_sql.return_value = Table.from_pandas(data)
         data_preprocessor = DataPreprocessor(self.valid_query, data=data)
 
-        print(np.arange(0, 10))
-        print(np.exp(-np.arange(0, 10)/3.0))
-
-        new_wavelengths = np.array([1, 1.2, 1.3])
+        new_wavelengths = np.array([1.2, 1.5, 2.9, 4])
         data_preprocessor.interpolate_data(new_wavelengths)
 
-        for header in data_preprocessor.column_headers:
-            #interp_function = np.interp(new_wavelengths, data.index, data[header])
-            interp_function = interp1d(data.index, data[header], kind='cubic', fill_value="extrapolate", bounds_error=False)
-            np.testing.assert_array_almost_equal(data_preprocessor.data[header], interp_function)
+        interp_function = interp1d(data['ra'], data['u'], kind='cubic', fill_value="extrapolate", bounds_error=False)
+        interpolated_values = interp_function(new_wavelengths)
+        np.testing.assert_array_almost_equal(data_preprocessor.data['u'], interpolated_values)
 
     # Test interpolation with invalid data
     @patch('group9_package.subpkg_1.core_functions_module_extract.SDSS.query_sql')
