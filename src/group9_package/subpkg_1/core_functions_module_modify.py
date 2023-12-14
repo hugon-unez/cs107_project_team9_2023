@@ -75,9 +75,9 @@ class DataPreprocessor(SpectralAnalysisBase):
             # Check if lengths match
             if len(new_wavelengths) != len(old_wavelengths):
                 raise ValueError("Length of new_wavelengths does not match the length of old wavelengths")
-
+            
             # Create interpolation function
-            interp_function = interp1d(old_wavelengths, flux_values, kind='cubic', fill_value="extrapolate", bounds_error=False)
+            interp_function = interp1d(np.array(old_wavelengths.values), np.array(flux_values.values), kind='cubic', fill_value="extrapolate", bounds_error=False)
 
             # Use the interpolation function to estimate values at new_wavelengths
             interpolated_values = interp_function(new_wavelengths)
