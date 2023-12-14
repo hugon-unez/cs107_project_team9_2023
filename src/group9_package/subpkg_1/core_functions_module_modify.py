@@ -61,18 +61,29 @@ class DataPreprocessor(SpectralAnalysisBase):
     #and you want to estimate the values at positions that are not explicitly provided.
     def interpolate_data(self, new_wavelengths):
         if self.data is not None:
-            if len(new_wavelengths) != len(self.data.index):
-                raise ValueError("Length of new_wavelengths does not match length of index")
-            
-            for header in self.column_headers:
-                #spectral data probably observes non-linear relationship
-                interp_function = interp1d(self.data.index, self.data[header], kind='cubic', fill_value="extrapolate", bounds_error=False )
+            if len(self.column_headers) < 2:
+                raise ValueError("Insufficient columns in self.column_headers for interpolation")
 
-                # Use the interpolation function to estimate values at new_wavelengths
-                interpolated_values = interp_function(new_wavelengths)
+            # Assume wavelength is at index 0 and flux is at index 1
+            header_wavelength = self.column_headers[0]
+            header_flux = self.column_headers[1]
 
-                # Update the dataframe with the interpolated values
-                self.data[header] = interpolated_values
+            # Extract wavelengths and flux values
+            old_wavelengths = self.data[header_wavelength]
+            flux_values = self.data[header_flux]
+
+            # Check if lengths match
+            if len(new_wavelengths) != len(old_wavelengths):
+                raise ValueError("Length of new_wavelengths does not match the length of old wavelengths")
+
+            # Create interpolation function
+            interp_function = interp1d(old_wavelengths, flux_values, kind='cubic', fill_value="extrapolate", bounds_error=False)
+
+            # Use the interpolation function to estimate values at new_wavelengths
+            interpolated_values = interp_function(new_wavelengths)
+
+            # Update the dataframe with the interpolated values
+            self.data[header_flux] = interpolated_values
         else:
             raise ValueError("No data available for interpolation")
 
