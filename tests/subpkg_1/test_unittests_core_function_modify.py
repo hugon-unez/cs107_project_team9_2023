@@ -27,9 +27,6 @@ class TestDataPreprocessor(unittest.TestCase):
 
         for header in data_preprocessor.column_headers:
             normalized_data = (data[header] - np.mean(data[header])) / np.std(data[header])
-            print(normalized_data)
-            print("zach")
-            print(data_preprocessor.data[header])
             np.testing.assert_array_almost_equal(data_preprocessor.data[header], normalized_data)
 
     # Test remove normalize with invalid data
