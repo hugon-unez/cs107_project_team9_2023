@@ -11,9 +11,10 @@ from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalys
 
 
 class TestCelestialObjectClassifier():
-    # Define pytest fixtures for X_train, X_test, y_train, y_test
+    """A class for testing our methods in machine_learning_module"""
     @pytest.fixture
     def setup_celestial_classifier(self):
+        """Define pytest fixtures for X_train, X_test, y_train, y_test"""
         # Define a sample ADQL queries to obtain data from SDSS
         query_galaxies = "select top 1 class, plate, mjd, fiberid, bestObjID from specObj where class = 'galaxy'"
         query_stars = "select top 1 class, plate, mjd, fiberid, bestObjID from specObj where class = 'star'"
@@ -92,8 +93,8 @@ class TestCelestialObjectClassifier():
     def test_fit(self, setup_celestial_classifier):
         """This is a trivial test that tests the fit function
 
-            Specifically, it ensures that we set the instance variable X_train
-            and do not try and fit the model on empty data
+        Specifically, it ensures that we set the instance variable X_train
+        and do not try and fit the model on empty data
         """
 
         X_train, X_test, y_train, y_test = setup_celestial_classifier.values()
@@ -117,10 +118,11 @@ class TestCelestialObjectClassifier():
     def test_predict(self, setup_celestial_classifier):
         """This is a trivial test that tests the predict function
 
-            Specifically, it ensures that we set the instance variable X_test,
-            do not try and predict on empty data, try to predict if 
-            the model is not trained, or try to predict on data that does not 
-            have the right amount of columns
+        Specifically, it ensures that we set the instance variable X_test,
+        do not try and predict on empty data, try to predict if 
+        the model is not trained, or try to predict on data that does not 
+        have the right amount of columns. Additionally, it ensures that our 
+        predictions is a n x 1 series
         """
 
         X_train, X_test, y_train, y_test = setup_celestial_classifier.values()
@@ -158,10 +160,11 @@ class TestCelestialObjectClassifier():
     def test_predict_proba(self, setup_celestial_classifier):
         """This is a trivial test that tests the predict_proba function
 
-            Specifically, it ensures that we set the instance variable X_test,
-            do not try and run predict_proba on empty data, try to predict
-            if the model is not trained, or try to predict on data that does not 
-            have the right amount of columns
+        Specifically, it ensures that we set the instance variable X_test,
+        do not try and run predict_proba on empty data, try to predict
+        if the model is not trained, or try to predict on data that does not 
+        have the right amount of columns. It also ensures that the predictions 
+        we get back is a n x 3 matrix
         """
 
         X_train, X_test, y_train, y_test = setup_celestial_classifier.values()
