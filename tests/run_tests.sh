@@ -9,6 +9,7 @@ tests=(
     subpkg_1/test_core_functions_module_extract.py
     subpkg_1/test_visualize.py
     subpkg_1/test_unittests_core_function_module.py
+    subpkg_2/test_machine_learning_module.py
     subpkg_1/test_unittests_core_function_modify.py
 )
 
