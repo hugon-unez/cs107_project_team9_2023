@@ -1,9 +1,10 @@
 """This unit test module runs tests for core_functions_module_extract.py"""
 
 import unittest
+import numpy as np
 from unittest.mock import patch
 from astropy.table import Table
-from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase, MetaDataExtractor
+from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase, MetaDataExtractor, SpectraExtract
 from astroquery.exceptions import RemoteServiceError, TimeoutError
 from requests.exceptions import RequestException
 
