@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # File       : visualize_module.py
-# Description: Visualization module for spectral analysis
+# Description: Visualize Spectral Data
 # License    : GNU General Public License, version 3
 # Copyright 2023 Harvard University. All Rights Reserved.
 

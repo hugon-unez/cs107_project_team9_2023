@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# File       : core_functions_module.py
-# Description: Core functions module for spectral data analysis
+# File       : core_functions_module_extract.py
+# Description: Extracts Astronomical Data from SDSS
 # License    : GNU General Public License, version 3
 # Copyright 2023 Harvard University. All Rights Reserved.
 """This python module provides functionality for querying and extracting astronomical data from the SDSS database. """

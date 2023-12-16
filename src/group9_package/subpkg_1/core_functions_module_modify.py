@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # File       : core_functions_module_modify.py
-# Description: Core functions Modify Module for spectral data analysis
+# Description: Modifies Spectral Data 
 # License    : GNU General Public License, version 3
 # Copyright 2023 Harvard University. All Rights Reserved.
 """

@@ -3,7 +3,10 @@
 # Description: Classify Galaxy, Star, or QSO based on spectral data
 # License    : GNU General Public License, version 3
 # Copyright 2023 Harvard University. All Rights Reserved.
-"""This python module provides functionality to predict a celestial object based on its spectral data"""
+"""
+This python module provides functionality to predict a celestial object based 
+on its spectral data
+"""
 
 from astropy.table import Table
 from sklearn.linear_model import LogisticRegression
@@ -35,6 +38,11 @@ class CelestialObjectClassifier:
         Args:
             spectral_data (DataFrame): Data used to train the logisitic regression model
             y (Series): Classes (QSO, Star, or Galaxy) for each observation in our data
+
+        Raises:
+            ValueError: 
+                if spectral_data is not a DataFrame or if y is not a Series
+                if spectral_data or y are empty
         """
         if (not isinstance(spectral_data, pd.DataFrame) or not isinstance(y, pd.Series)):
             raise ValueError("Spectral Data inputted not a data frame or classifications data not a series")
@@ -69,6 +77,12 @@ class CelestialObjectClassifier:
             predicted stars from our model; where all elements in the third row
             sum to get the true number of qsos, and the third element of the row
             represents the number of correctly predicted qsos from our model
+        
+        Raises:
+            ValueError: 
+                if spectral_data is not a DataFrame or if y is not a Series
+                if the model has not been trained yet
+                if spectral_data or y are empty
         """
         if (not isinstance(spectral_data, pd.DataFrame) or not isinstance(y, pd.Series)):
             raise ValueError("Spectral Data inputted not a data frame or classifications data not a series")
@@ -104,6 +118,12 @@ class CelestialObjectClassifier:
         Returns: 
             dataframe, where each row represents an observation and the columns represent 
             the probability that this observation is either a Stars, Galaxy, or QSO
+    
+        Raises:
+            ValueError: 
+                if spectral_data is not a DataFrame
+                if the model has not been trained yet
+                if spectral_data is empty
         """
         if not isinstance(spectral_data, pd.DataFrame):
             raise ValueError("Data inputted not a dataframe")
