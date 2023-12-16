@@ -149,13 +149,13 @@ class TestSpectralAnalysisSpectraExtract():
         galaxies_data_copy = galaxies.data.copy()
         galaxies_data_copy.remove_column('plate')
 
-        spectra_extractor = SpectraExtract(galaxies.data)
+        spectra_extractor = SpectraExtract(galaxies.data[0])
         spectra_data_valid = spectra_extractor.extract_spectra()
         
         return {
-            'valid_data_row': galaxies.data,
+            'valid_data_row': galaxies.data[0],
             'invalid_data_row_incorrect_type': "invalid data row",
-            'invalid_data_row_missing_column': galaxies_data_copy,
+            'invalid_data_row_missing_column': galaxies_data_copy[0],
             'spectra_data_valid': spectra_data_valid
         }
 
@@ -175,15 +175,19 @@ class TestSpectralAnalysisSpectraExtract():
         with pytest.raises(ValueError):
             spectra_extractor = SpectraExtract(invalid_data_row_missing_column)
 
-    def test_extract_spectra(self):
+    @pytest.mark.usefixtures("setup_spectra_extract")
+    def test_extract_spectra(self, setup_spectra_extract):
         """Tests extract spectra method 
 
         Specifically, ensures that the spectra we query for is correct
         """
-        spectra_extractor = SpectraExtract(valid_data_row)
-        test_spectra_data = spectra_extractor.extract_spectra
 
-        assert (test_spectra_data == spectra_data_valid)
+        valid_data_row, invalid_data_row_incorrect_type, invalid_data_row_missing_column, spectra_data_valid = setup_spectra_extract.values()
+
+        spectra_extractor = SpectraExtract(valid_data_row)
+        test_spectra_data = spectra_extractor.extract_spectra()
+
+        assert test_spectra_data.equals(spectra_data_valid)
         
 
 
