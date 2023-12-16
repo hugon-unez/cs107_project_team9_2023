@@ -14,7 +14,7 @@ Executes Query (if given) and stores data (from executed query or from passed ar
 
 ## Class: MetadataExtractor
 Inherits Base Class.
-Extracts metadata from the spectral data.
+Extracts metadata, including class, from the spectral data.
 
 ### Functions:
 - `__init__`: Initializes appropriate attributes.
@@ -28,6 +28,7 @@ Extracts metadata from the spectral data.
 ## Class: WavelengthAlign
 Inherits Base Class.
 Aligns wavelength for all the spectra across a predefined range.
+Returns a flux value.
 
 ### Functions:
 - `__init__`: Initializes appropriate attributes.
@@ -35,7 +36,7 @@ Aligns wavelength for all the spectra across a predefined range.
 
 ## Class: DataPreprocessor
 Inherits Base Class.
-Manages data preprocessing tasks.
+Manages data preprocessing tasks for each spectrum independently.
 
 ### Functions:
 - `__init__`: Initializes appropriate attributes.
@@ -80,7 +81,7 @@ Cross matches data with other reference sources.
 # Machine Learning Module
 
 ## Class: Classification
-Distinguishes between Stars, Galaxies, and QSOs.
+Distinguishes between Stars, Galaxies, and QSOs using spectral data. 
 
 ### Functions:
 - `__init__`: Initializes appropriate attributes.
