@@ -77,7 +77,7 @@ class TestCelestialObjectClassifier():
 
     @pytest.mark.usefixtures("setup_celestial_classifier")
     def test_init(self, setup_celestial_classifier):
-        """This is a trivial test that tests the __init__ function"""
+        """This is a trivial test that our class has the appropriate instance variables"""
 
         X_train, X_test, y_train, y_test = setup_celestial_classifier.values()
 
@@ -119,8 +119,8 @@ class TestCelestialObjectClassifier():
         """This is a trivial test that tests the predict function
 
         Specifically, it ensures that we set the instance variable X_test,
-        do not try and predict on empty data, try to predict if 
-        the model is not trained, or try to predict on data that does not 
+        do not try and predict on empty data, do not try to predict if 
+        the model is not trained, or do not try to predict on data that does not 
         have the right amount of columns. Additionally, it ensures that our 
         predictions is a n x 1 series
         """
@@ -161,8 +161,8 @@ class TestCelestialObjectClassifier():
         """This is a trivial test that tests the predict_proba function
 
         Specifically, it ensures that we set the instance variable X_test,
-        do not try and run predict_proba on empty data, try to predict
-        if the model is not trained, or try to predict on data that does not 
+        do not try and run predict_proba on empty data, do not try to predict
+        if the model is not trained, or do not try to predict on data that does not 
         have the right amount of columns. It also ensures that the predictions 
         we get back is a n x 3 matrix
         """

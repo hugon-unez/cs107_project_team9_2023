@@ -5,7 +5,7 @@
 # Copyright 2023 Harvard University. All Rights Reserved.
 """
 This python module extends the functionality of the core_functions_module_extract 
-focusing on data preprocessing and modification techniques of astronomical data.
+by focusing on data preprocessing and modification techniques of spectral data.
 """
 
 from astroquery.sdss import SDSS

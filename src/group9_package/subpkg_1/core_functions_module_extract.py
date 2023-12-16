@@ -3,7 +3,7 @@
 # Description: Extracts Astronomical Data from SDSS
 # License    : GNU General Public License, version 3
 # Copyright 2023 Harvard University. All Rights Reserved.
-"""This python module provides functionality for querying and extracting astronomical data from the SDSS database. """
+"""This python module provides functionality for querying and extracting astronomical data from the SDSS database."""
 
 from astroquery.sdss import SDSS
 from astropy.table import Table
@@ -21,7 +21,7 @@ class SpectralAnalysisBase:
 
         Args:
             query (str): String parameter containing an ADQL query to query the SDSS database.
-            data (astropy.table.Table, optional): Optional parameter to input spectral data as an Astropy Table object.
+            data (astropy.table.Table, optional): Optional parameter to input astronomical data as an Astropy Table object.
                 Defaults to None.
 
         Raises:
@@ -75,7 +75,7 @@ class MetaDataExtractor(SpectralAnalysisBase):
 
         Args:
             query (str): String parameter containing an ADQL query to query the SDSS database
-            data (astropy.table.Table, optional): Optional parameter to input spectral data 
+            data (astropy.table.Table, optional): Optional parameter to input astronomical data 
                 as Astropy Table object. Default = None.
         """
         super().__init__(query, data)

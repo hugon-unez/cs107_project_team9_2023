@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 # File       : visualize_module.py
-# Description: Visualize Spectral Data
+# Description: Visualizes Spectral Data
 # License    : GNU General Public License, version 3
 # Copyright 2023 Harvard University. All Rights Reserved.
-
 """
 Module for visualizing spectral data, providing tools to graphically represent 
 spectra extracted from astronomical observations.
@@ -18,11 +17,11 @@ from astropy.table import Table
 class SpectralVisualizer:
     """
     Class for visualizing spectral data either from a provided data frame 
-    or directly from a row of astronomical data.
+    or by extracting spectral data given a row of astronomical data.
     """
     def __init__(self, *, row=None, data=None):
         """Initializes the SpectralVisualizer Class with either a single row of 
-            data or a pre-processed data frame.
+        astronomical data or a pre-processed data frame.
 
         Args:
             row (Table.Row, optional): A single row of astronomical data. 
