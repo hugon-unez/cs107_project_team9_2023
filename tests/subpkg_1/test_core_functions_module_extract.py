@@ -134,4 +134,56 @@ class TestSpectralAnalysisMetaDataExtractor():
         with pytest.raises(ValueError):
             astro1.extract_identifiers()
 
-### NEED TO ADD INTEGRATION TEST FOR SPECTRA EXTRACT
+class TestSpectralAnalysisSpectraExtract():
+    """A class for testing our methods in the SpectraExtract Class"""
+    @pytest.fixture
+    def setup_spectra_extract(self):
+        """Define pytest valid_data_row, invalid_data_row_incorrect_type, invalid_data_row_missing_column, spectra_data_valid"""
+        # Define a sample ADQL query to obtain data from SDSS
+        query_galaxies = "select top 1 class, plate, mjd, fiberid, bestObjID from specObj where class = 'galaxy'"
+
+        # Create a SpectralAnalysisBase Class instance to execute the queries
+        galaxies = SpectralAnalysisBase(query_galaxies)
+        galaxies.execute_query()  # Execute the query
+
+        galaxies_data_copy = galaxies.data.copy()
+        galaxies_data_copy.remove_column('plate')
+
+        spectra_extractor = SpectraExtract(galaxies.data)
+        spectra_data_valid = spectra_extractor.extract_spectra()
+        
+        return {
+            'valid_data_row': galaxies.data,
+            'invalid_data_row_incorrect_type': "invalid data row",
+            'invalid_data_row_missing_column': galaxies_data_copy,
+            'spectra_data_valid': spectra_data_valid
+        }
+
+    @pytest.mark.usefixtures("setup_spectra_extract")
+    def test_init(self, setup_spectra_extract):
+        """This tests our __init__ functions
+        
+        Specifically, it ensures that we raise a TypeError if the inputted row is 
+        not a row from an astropy table, that we raise a ValueError if we are missing
+        either 'plate', 'mjd', or 'fiberid' from our row of data
+        """
+        valid_data_row, invalid_data_row_incorrect_type, invalid_data_row_missing_column, spectra_data_valid = setup_spectra_extract.values()
+
+        with pytest.raises(TypeError):
+            spectra_extractor = SpectraExtract(invalid_data_row_incorrect_type)
+
+        with pytest.raises(ValueError):
+            spectra_extractor = SpectraExtract(invalid_data_row_missing_column)
+
+    def test_extract_spectra(self):
+        """Tests extract spectra method 
+
+        Specifically, ensures that the spectra we query for is correct
+        """
+        spectra_extractor = SpectraExtract(valid_data_row)
+        test_spectra_data = spectra_extractor.extract_spectra
+
+        assert (test_spectra_data == spectra_data_valid)
+        
+
+
