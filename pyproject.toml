@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "team09_cs107_2023"
-version = "0.0.3"
+version = "0.0.4"
 authors = [
   { name="Hugo Nunez", email="hugonunez@college.harvard.edu" },
   { name="Zachary Stack", email="zstack@college.harvard.edu" },
@@ -21,11 +21,10 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-   "requests>=2.27",    # Should add back some depdencies if possible: astroquery, astropy
+   "requests>=2.27",    # Should add back some depdencies if possible: astroquery, astropy, matplotlib
    "pandas>=1.4",
    "scipy>=1.8",
    "numpy>=1.22",
-   "matplotlib>=3.5,",
    "scikit-learn>=1.0",
    "pytest>=7.1"
 ]
