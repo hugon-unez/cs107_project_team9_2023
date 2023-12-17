@@ -39,31 +39,38 @@ class CrossMatchingModule:
 
         Example:
             cross_match_module = CrossMatchingModule()
-            result_dataframe = cross_match_module.cross_match(10, 1237671939275162601)
+            result_dataframe = cross_match_module.cross_match(10, 6279435494640163584)
             print(result_dataframe)
         """
 
         try:
-                # Construct the query string using f-string
-                query = f"SELECT original_ext_source_id, angular_distance FROM gaiadr3.sdssdr13_best_neighbour WHERE original_ext_source_id = {sourceid}"
+            # Ensure there are inputs
+            if angular_distance_max is None or sourceid is None:
+                raise TypeError("Input values cannot be None")
 
-                # Execute the query using astroquery.gaia
-                job = Gaia.launch_job(query)
-                results = job.get_results()
+            # Convert inputs to integers and validate
+            angular_distance_max = float(angular_distance_max)
+            sourceid = int(sourceid)
 
-                # Convert results to a pandas DataFrame
-                df = results.to_pandas()
+            if angular_distance_max < 0:
+                raise ValueError("Angular distance must be a non-negative integer")
 
-                # Filter results based on angular distance upper bound
-                pure_df = df[df['angular_distance'] <= angular_distance_max]
+            query = f"SELECT original_ext_source_id, angular_distance FROM gaiadr3.sdssdr13_best_neighbour WHERE source_id = {sourceid}"
+            job = Gaia.launch_job(query)
+            results = job.get_results()
+            df = results.to_pandas()
+            pure_df = df[df['angular_distance'] <= angular_distance_max]
+            return pure_df
 
-                return pure_df
-
-        except astropy.utils.exceptions.TimeoutError:
-            print("Query timed out. Please try again later.")
-        except astropy.utils.exceptions.RemoteServiceError:
-            print("Remote service error. Please check your internet connection.")
+        except ValueError as ve:
+            print(f"Input error: {ve}")
+            raise
+        except TypeError as te:
+            print(f"Type error: {te}")
+            raise
+        except requests.exceptions.HTTPError as he:
+            print(f"HTTP error occurred: {he}")
+            raise requests.exceptions.HTTPError
         except Exception as e:
-            print(f"An error occurred: {e}")
-
+            print(f"An unexpected error occurred: {e}")
 
