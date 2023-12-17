@@ -167,7 +167,7 @@ class TestWavelengthAlignment(unittest.TestCase):
                 'model': model
             })
 
-        aligned_spectra = WavelengthAlignment.WavelengthAlign(pd.DataFrame(spectra_data), target_range)
+        aligned_spectra = WavelengthAlignment.WavelengthAlign(spectra_data, target_range)
 
         # Check if aligned spectra have the same length as target_range
         for spectrum in aligned_spectra:
