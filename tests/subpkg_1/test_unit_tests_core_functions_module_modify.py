@@ -6,7 +6,6 @@ import numpy as np
 from unittest.mock import patch
 from astropy.table import Table
 from scipy.interpolate import interp1d
-from scipy.interpolate import interp1d
 from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase
 from group9_package.subpkg_1.core_functions_module_modify import DataPreprocessor, WavelengthAlignment
 
@@ -141,43 +140,19 @@ class TestWavelengthAlignment(unittest.TestCase):
     def test_alignment(self):
         """Test the alignment of spectra data."""
         # Create sample spectra data
-        num_spectra = 5
+
         num_wavelengths = 100
         target_range = (5000, 7000)
-        spectra_data = []
 
-        for _ in range(num_spectra):
-            loglam = np.linspace(target_range[0], target_range[1], num_wavelengths)
-            flux = np.random.rand(num_wavelengths) * 100  # Random flux values
-            ivar = np.random.rand(num_wavelengths) * 10    # Random inverse variance
-            and_mask = np.zeros(num_wavelengths, dtype=int)
-            or_mask = np.zeros(num_wavelengths, dtype=int)
-            wdisp = np.random.rand(num_wavelengths) * 2    # Random wdisp values
-            sky = np.random.rand(num_wavelengths) * 50     # Random sky values
-            model = np.random.rand(num_wavelengths) * 200  # Random model values
-
-            spectra_data.append({
-                'loglam': loglam,
-                'flux': flux,
-                'ivar': ivar,
-                'and_mask': and_mask,
-                'or_mask': or_mask,
-                'wdisp': wdisp,
-                'sky': sky,
-                'model': model
-            })
-
-        aligned_spectra = WavelengthAlignment.WavelengthAlign(spectra_data, target_range)
+        aligned_spectra = WavelengthAlignment.WavelengthAlign(self.valid_data, target_range)
 
         # Check if aligned spectra have the same length as target_range
-        for spectrum in aligned_spectra:
-            self.assertEqual(len(spectrum['loglam']), num_wavelengths)
+        self.assertEqual(len(aligned_spectra['loglam']), num_wavelengths)
 
         # Check if flux values are correctly interpolated
-        for spectrum in aligned_spectra:
-            interpolator = interp1d(spectrum['loglam'], spectrum['flux'], kind='linear', fill_value=0.0, bounds_error=False)
-            interpolated_flux = interpolator(spectrum['loglam'])
-            np.testing.assert_allclose(spectrum['flux'], interpolated_flux)
+        interpolator = interp1d(aligned_spectra['loglam'], aligned_spectra['flux'], kind='linear', fill_value=0.0, bounds_error=False)
+        interpolated_flux = interpolator(aligned_spectra['loglam'])
+        np.testing.assert_allclose(aligned_spectra['flux'], interpolated_flux)
 
     def test_invalid_data_type(self):
         """Test if a ValueError is raised for invalid data type."""
