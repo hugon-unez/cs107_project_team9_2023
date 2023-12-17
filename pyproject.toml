@@ -20,14 +20,6 @@ classifiers = [
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Operating System :: OS Independent",
 ]
-dependencies = [
-   "requests>=2.27",    # Should add back some depdencies if possible: astroquery, astropy, matplotlib
-   "pandas>=1.4",
-   "scipy>=1.8",
-   "numpy>=1.22",
-   "scikit-learn>=1.0",
-   "pytest>=7.1"
-]
 
 [tool.hatch.build.targets.wheel]
 # Define the packages or directories to include in the wheel package
