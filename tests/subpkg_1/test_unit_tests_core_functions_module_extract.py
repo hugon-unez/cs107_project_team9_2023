@@ -183,7 +183,7 @@ class TestSpectraExtract(unittest.TestCase):
         self.assertFalse(data_full.empty, "DataFrame should not be empty")
 
         # make sure dataframe has correct columns
-        self.assertCountEqual(['flux', 'loglam', 'ivar', 'and_mask', 'or_mask', 'wdisp', 'sky', 'model'], data_full.columns.tolist())
+        self.assertCountEqual(['FLUX', 'LOGLAM', 'IVAR', 'AND_MASK', 'OR_MASK', 'WDISP', 'SKY', 'WRESL', 'MODEL'], data_full.columns.tolist())
 
 if __name__ == '__main__':
     unittest.main()
