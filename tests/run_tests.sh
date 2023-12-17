@@ -7,6 +7,7 @@ set -e
 # list of test cases you want to run
 tests=(
     subpkg_1/test_core_functions_module_extract.py
+    subpkg_1/test_core_functions_module_modify.py
     subpkg_1/test_visualize_module.py
     subpkg_1/test_unit_tests_visualize_module.py
     subpkg_1/test_unit_tests_core_functions_module_extract.py
