@@ -1,4 +1,8 @@
-"""This test module runs tests for core_functions_module.py"""
+"""
+This integration test module runs tests for core_functions_module_extract.py.
+Specifically, it ensures that all of our classes within the module work dependently
+"""
+
 import pytest
 import unittest
 import numpy as np
@@ -8,11 +12,9 @@ from astropy.utils.diff import report_diff_values
 from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase, MetaDataExtractor, SpectraExtract
 
 class TestSpectralAnalysisBase():
-    """A class for testing our methods in the base class"""
-
+    """A class for testing our methods in the SpectralAnalysisBase Class"""
     def test_init(self):
-        """This is a trivial test to ensure that tests the __init__ function"""
-
+        """This is a trivial test to ensure our class has the appropriate instance variables"""
         # Initializing Core Class
         query = "select top 10 ra, dec, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
         astro = SpectralAnalysisBase(query)
@@ -21,10 +23,12 @@ class TestSpectralAnalysisBase():
         assert hasattr(astro, "data")
 
     def test_execute_query(self):
-        """This a trivial test to check the return value of extract"""
+        """Tests execute query method
 
+        Specifically, ensures that we raise ValueError on invalid
+        queries and if the data inputted is not of type Astropy Table
+        """
         # Calling execute query 
-        
         query = "select top 10 ra, dec, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
         astro = SpectralAnalysisBase(query)
         astro.execute_query()
@@ -35,7 +39,7 @@ class TestSpectralAnalysisBase():
 
         assert report_diff_values(data, astro.data)
 
-        # Test invalid query Value Error Raised no Select
+        # Test invalid query Value Error Raised no 'Select'
 
         query = 'invalid query test'
         astro1 = SpectralAnalysisBase(query)
@@ -43,7 +47,7 @@ class TestSpectralAnalysisBase():
         with pytest.raises(ValueError):
             astro1.execute_query()
 
-        # # Test invalid query Value Error Raised no Select
+        # Test invalid query Value Error Raised no 'From'
 
         query = "select query test"
         astro = SpectralAnalysisBase(query)
@@ -51,37 +55,17 @@ class TestSpectralAnalysisBase():
         with pytest.raises(ValueError):
             astro.execute_query()
 
-        # # Test setting data not equal to Table Astroquery DataType
+        # Test setting data not equal to Table Astroquery DataType
 
         query = "select top 10 ra, dec, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
 
         with pytest.raises(ValueError):
             astro = SpectralAnalysisBase(query,data=[])
 
-class TestSpectraExtract(unittest.TestCase):
-    def test_spectra_extract(self):
-        # Create an instance of spectraExtract with sample data from sdss docs
-
-        # sample_row = Row({'plate': 15150, 'mjd': 59291, 'fiberid': 1})
-        row_data = {'plate': np.array([15150]), 'mjd': np.array([59291]), 'fiberid': np.array([1])}
-        table = Table(row_data, names=('plate', 'mjd', 'fiberid'))
-
-        extractor = SpectraExtract(table[0])
-
-        data = extractor.extract_spectra()
-
-        # make sure dataframe not empty
-        self.assertFalse(data.empty, "DataFrame should not be empty")
-
-        # make sure dataframe has correct columns
-        self.assertCountEqual(['Wavelength', 'Flux', 'BestFit', 'SkyFlux'], data.columns.tolist())
-
 class TestSpectralAnalysisMetaDataExtractor():
-    """A class for testing our methods in the base class"""
-
+    """A class for testing our methods in the MetaDataExtractor Class"""
     def test_init(self):
-        """This is a trivial test to ensure that tests the __init__ function"""
-
+        """This is a trivial test to ensure our class has the appropriate instance variables"""
         # Initializing Core Class
         query = "select top 10 ra, dec, z, bestObjID from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
         astro = MetaDataExtractor(query)
@@ -91,6 +75,14 @@ class TestSpectralAnalysisMetaDataExtractor():
 
 
     def test_extract_methods(self):
+        """Tests all extract methods 
+
+        Specifically, ensures that we raise a ValueError when the methods are
+        called and the query was never executed, that the returned objects of our 
+        methods have the correct types, that our returned objects contain the 
+        correct columns, and that we raise a ValueError when we try extracting 
+        metadata when it is not present in our DataFrame of data
+        """
         query = "select top 10 ra, dec, elodieZ, bestObjID, elodieFeH from specObj where class = 'galaxy'  and z > 0.3 and zWarning = 0"
         astro = MetaDataExtractor(query)
 
@@ -141,3 +133,5 @@ class TestSpectralAnalysisMetaDataExtractor():
         #test value errors are raised if required column is not present
         with pytest.raises(ValueError):
             astro1.extract_identifiers()
+
+### NEED TO ADD INTEGRATION TEST FOR SPECTRA EXTRACT

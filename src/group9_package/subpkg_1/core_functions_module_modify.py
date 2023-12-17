@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 # File       : core_functions_module_modify.py
-# Description: Core functions Modify Module for spectral data analysis
+# Description: Modifies Spectral Data 
 # License    : GNU General Public License, version 3
 # Copyright 2023 Harvard University. All Rights Reserved.
+"""
+This python module extends the functionality of the core_functions_module_extract 
+by focusing on data preprocessing and modification techniques of spectral data.
+"""
 
 from astroquery.sdss import SDSS
 from scipy.interpolate import interp1d
@@ -13,18 +17,18 @@ from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalys
 
 
 class DataPreprocessor(SpectralAnalysisBase):
-    #Spectral Data:
-    #Definition: Spectral data represents how the intensity of light emitted or received 
-    #by an object varies across different wavelengths. Representation: A spectrum is often 
-    #presented as a graph where the x-axis represents the wavelength (or frequency) of light
-    #and the y-axis represents the intensity or flux of light at each wavelength.
-
-    #For light waves, the wavelength corresponds to the distance between two successive 
-    #peaks or troughs of the electromagnetic wave.
-
-    #User is expected to provide the query
+    """A Class for preprocessing spectral data including normalization, outlier removal, interpolation, and redshift correction."""
     def __init__(self, query, data=None):
+        """Initializes the DataPreprocessor class with a SQL query or pre-loaded data.
 
+        Args:
+            query (str): SQL query to retrieve data from the SDSS database.
+            data (pandas.DataFrame, optional): Pre-loaded spectral data in a pandas DataFrame. 
+                Defaults to None.
+
+        Raises:
+            ValueError: If the provided data is not a pandas DataFrame.
+        """
         #Similar to pp6 in that we're turning the query into a pandas dataframe
         self.query = query
 
@@ -37,6 +41,11 @@ class DataPreprocessor(SpectralAnalysisBase):
         self.column_headers = list(self.data.columns)
 
     def normalize_data(self):
+        """Normalizes the spectral data using Z-score normalization.
+
+        Raises:
+            ValueError: If there is no data available for normalization.
+        """
         if self.data is not None:
             # Perform normalization on the data 
             #looping through each column and normalizing each one and replacing them 
@@ -48,6 +57,15 @@ class DataPreprocessor(SpectralAnalysisBase):
             raise ValueError("No data available for normalization")
 
     def remove_outliers(self, threshold=2.5):
+        """Removes outliers from the spectral data based on a Z-score threshold.
+
+        Args:
+            threshold (float, optional): The Z-score threshold for identifying outliers. 
+                Defaults to 2.5.
+
+        Raises:
+            ValueError: If there is no data available for outlier removal.
+        """
         if self.data is not None:
             for header in self.column_headers:
                 # Remove outliers from data in using z-score
@@ -57,9 +75,15 @@ class DataPreprocessor(SpectralAnalysisBase):
         else:
             raise ValueError("No data available for outlier removal")
 
-    #Interpolation is commonly employed when you have a set of discrete data points 
-    #and you want to estimate the values at positions that are not explicitly provided.
     def interpolate_data(self, new_wavelengths):
+        """Interpolates the spectral data to new wavelengths.
+
+        Args:
+            new_wavelengths (list or array): The new wavelengths for interpolation.
+
+        Raises:
+            ValueError: If there is insufficient data for interpolation or if the lengths of new and old wavelengths do not match.
+        """
         if self.data is not None:
             if len(self.column_headers) < 2:
                 raise ValueError("Insufficient columns in self.column_headers for interpolation")
@@ -87,12 +111,16 @@ class DataPreprocessor(SpectralAnalysisBase):
         else:
             raise ValueError("No data available for interpolation")
 
-    #the light emitted by distant objects undergoes a redshift, meaning that the wavelengths of the 
-    #Emitted light are stretched and shifted towards the longer, "red" end of the electromagnetic spectrum.
-    #the redshift of an object is directly proportional to its distance from an observer due to the expansion 
-    # of the universe. The farther an object is, the greater its redshift tends to be.
-
     def correct_redshift(self, bands=['u', 'g', 'r', 'i']):
+        """Corrects the wavelengths of spectral data for redshift.
+
+        Args:
+            bands (list of str, optional): List of bands to apply redshift correction. 
+                Defaults to ['u', 'g', 'r', 'i'].
+
+        Raises:
+            ValueError: If there is no wavelength data available for redshift correction.
+        """
         if self.data is not None:
             # Adjust wavelengths in SpecObjAll based on redshift values
             #Original spectra is emit
