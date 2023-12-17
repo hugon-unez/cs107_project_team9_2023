@@ -138,3 +138,49 @@ class DataPreprocessor(SpectralAnalysisBase):
                 self.data[band] = corrected_values
         else:
             raise ValueError("No wavelength data available for redshift correction")
+
+class WavelengthAlignment():
+    def WavelengthAlign(spectra_data, target_range):
+        """ Aligns spectra data to a specified wavelength range, potentially requiring interpolation.
+
+        Args:
+            spectra_data (DataFrame): DataFrame containing FULL spectra data.
+                It should have columns: 'loglam', 'flux', 'ivar', 'and_mask', 'or_mask', 'wdisp', 'sky', 'model'.
+            target_range (tuple): A tuple specifying the target wavelength range (start, end).
+
+        Returns:
+            DataFrame: DataFrame containing aligned spectra data.
+        """
+        # Type and data validation
+        if not isinstance(spectra_data, pd.DataFrame):
+            raise ValueError("Spectrum data should be a Pandas DataFrame.")
+        
+        expected_columns = ['loglam', 'flux', 'ivar', 'and_mask', 'or_mask', 'wdisp', 'sky', 'model']
+        if not all(col in spectra_data.columns for col in expected_columns):
+            raise ValueError("DataFrame should contain columns: 'loglam', 'flux', 'ivar', 'and_mask', 'or_mask', 'wdisp', 'sky', 'model'.")
+
+        loglam = spectra_data['loglam']
+        flux = spectra_data['flux']
+
+        # Check if target_range is within the loglam range
+        if target_range[0] < loglam.min() or target_range[1] > loglam.max():
+            raise ValueError("Target wavelength range is outside the range of loglam values.")
+
+        # Interpolate flux values to align to the target range
+        interpolator = interp1d(loglam, flux, kind='linear', fill_value=0.0, bounds_error=False)
+        aligned_loglam = np.linspace(target_range[0], target_range[1], len(loglam))
+        aligned_flux = interpolator(aligned_loglam)
+
+        # Create a DataFrame for the aligned spectrum
+        aligned_spectrum = pd.DataFrame({
+            'loglam': aligned_loglam,
+            'flux': aligned_flux,
+            'ivar': spectra_data['ivar'],
+            'and_mask': spectra_data['and_mask'],
+            'or_mask': spectra_data['or_mask'],
+            'wdisp': spectra_data['wdisp'],
+            'sky': spectra_data['sky'],
+            'model': spectra_data['model']
+        })
+
+        return aligned_spectrum
