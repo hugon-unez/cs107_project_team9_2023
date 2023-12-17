@@ -32,7 +32,7 @@ class DataPreprocessor(SpectralAnalysisBase):
         #Similar to pp6 in that we're turning the query into a pandas dataframe
         self.query = query
 
-        if not isinstance(data, pd.DataFrame):
+        if not isinstance(data, pd.DataFrame) and data is not None:
             raise ValueError("Input data must be a pandas DataFrame")
 
         if data is None:

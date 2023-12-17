@@ -1,4 +1,7 @@
-"""This test module runs tests for machine_learning_module.py"""
+"""
+This integration test module runs tests for machine_learning_module.py.
+Specifically, it ensures that the module works with the core_functions_module_extract
+"""
 import pytest
 from astropy.table import Table
 from sklearn.linear_model import LogisticRegression
