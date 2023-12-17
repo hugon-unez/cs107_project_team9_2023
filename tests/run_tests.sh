@@ -7,10 +7,13 @@ set -e
 # list of test cases you want to run
 tests=(
     subpkg_1/test_core_functions_module_extract.py
-    subpkg_1/test_visualize.py
-    subpkg_1/test_unittests_core_function_module.py
+    subpkg_1/test_core_functions_module_modify.py
+    subpkg_1/test_visualize_module.py
+    subpkg_1/test_unit_tests_visualize_module.py
+    subpkg_1/test_unit_tests_core_functions_module_extract.py
+    subpkg_1/test_unit_tests_core_functions_module_modify.py
     subpkg_2/test_machine_learning_module.py
-    subpkg_1/test_unittests_core_function_modify.py
+    subpkg_2/test_unit_tests_machine_learning_module.py
 )
 
 # Must add the module source path because we use `import group9_package` in

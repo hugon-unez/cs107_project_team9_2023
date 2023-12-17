@@ -9,6 +9,8 @@ For Annex 3.B: our updates to include the class label ensures that each row has 
 Finally, for Annex 3.C, we clarified the return type for our function. By ensuring we return flux, this enables the wavelength align function to be better used in conjunction with other functions, increasing integration with visualization module specifically. Additionally, the wavelength align module becomes more more user friendly with the presented clarifications, since it is more clear to the user how to use this function.
 
 modules to be evaluated for integration:
-- core_functions_module_extract
-- core_functions_module_modify
+- core_functions_module_extract (tests are in the test_core_function_module_extract.py file)
+- core_functions_module_modify (tests are in the test_core_function_module_modify.py file)
+- visualize_module (tests are in the test_visualize_module.py file)
+- machine_learning_module (tests are in test_machine_learning_module.py file)
 
