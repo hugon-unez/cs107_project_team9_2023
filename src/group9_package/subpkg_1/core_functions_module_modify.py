@@ -35,8 +35,11 @@ class DataPreprocessor(SpectralAnalysisBase):
         if not isinstance(data, pd.DataFrame):
             raise ValueError("Input data must be a pandas DataFrame")
 
-        job = SDSS.query_sql(self.query)
-        self.data = job.to_pandas()
+        if data is None:
+            job = SDSS.query_sql(self.query)
+            self.data = job.to_pandas()
+        else:
+            self.data = data
 
         self.column_headers = list(self.data.columns)
 
