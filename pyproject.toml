@@ -8,8 +8,8 @@ version = "0.0.1"
 authors = [
   { name="Hugo Nunez", email="hugonunez@college.harvard.edu" },
   { name="Zachary Stack", email="zstack@college.harvard.edu" },
-  { name="Ricardo Linares", email="ricardolinares@college.harvard.edu" }
-  { name="Sameer Das", email="sameerdas@college.harvard.edu" }
+  { name="Ricardo Linares", email="ricardolinares@college.harvard.edu" },
+  { name="Sameer Das", email="sameerdas@college.harvard.edu" },
   { name="Paul Alexis", email="paulalexis@college.harvard.edu" }
 ]
 description = "A spectral data analysis package for our client Victor Zhu for CS107"
