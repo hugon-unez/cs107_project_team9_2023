@@ -1,9 +1,7 @@
-from astroquery.sdss import SDSS
 import pytest
 import unittest
 import numpy as np
 import pandas as pd
-import differint.differint as df
 from group9_package.subpkg_1.data_augmentation_module import DataAugmentation
 
 class TestDataPreprocessor(unittest.TestCase):

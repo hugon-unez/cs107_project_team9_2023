@@ -4,7 +4,6 @@
 # License    : GNU General Public License, version 3
 # Copyright 2023 Harvard University. All Rights Reserved.
 
-from astroquery.sdss import SDSS
 import numpy as np
 import pandas as pd
 import differint.differint as df
