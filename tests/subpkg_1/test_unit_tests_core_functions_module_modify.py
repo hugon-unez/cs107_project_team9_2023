@@ -8,7 +8,7 @@ from astropy.table import Table
 from scipy.interpolate import interp1d
 from scipy.interpolate import interp1d
 from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase
-from group9_package.subpkg_1.core_functions_module_modify import DataPreprocessor, WavelengthAlign
+from group9_package.subpkg_1.core_functions_module_modify import DataPreprocessor, WavelengthAlignment
 
 
 class TestDataPreprocessor(unittest.TestCase):
@@ -121,8 +121,8 @@ class TestDataPreprocessor(unittest.TestCase):
             dataPre.data = None
             dataPre.correct_redshift()
 
-class TestWavelengthAlign(unittest.TestCase):
-    """Test cases for the WavelengthAlign Class."""
+class TestWavelengthAlignment(unittest.TestCase):
+    """Test cases for the WavelengthAlignment Class."""
 
     def setUp(self):
         """Set up valid data for testing."""
@@ -167,7 +167,7 @@ class TestWavelengthAlign(unittest.TestCase):
                 'model': model
             })
 
-        aligned_spectra = WavelengthAlign(spectra_data, target_range)
+        aligned_spectra = WavelengthAlignment.WavelengthAlign(pd.DataFrame(spectra_data), target_range)
 
         # Check if aligned spectra have the same length as target_range
         for spectrum in aligned_spectra:
@@ -182,18 +182,18 @@ class TestWavelengthAlign(unittest.TestCase):
     def test_invalid_data_type(self):
         """Test if a ValueError is raised for invalid data type."""
         with self.assertRaises(ValueError):
-            WavelengthAlign("invalid_data_type", (4000, 8000))
+            WavelengthAlignment.WavelengthAlign("invalid_data_type", (4000, 8000))
 
     def test_missing_columns(self):
         """Test if a ValueError is raised for missing columns in the DataFrame."""
         missing_columns_data = self.valid_data.drop(columns=['flux', 'ivar'])
         with self.assertRaises(ValueError):
-            WavelengthAlign(missing_columns_data, (4000, 8000))
+            WavelengthAlignment.WavelengthAlign(missing_columns_data, (4000, 8000))
 
     def test_target_range_out_of_range(self):
         """Test if a ValueError is raised when the target range is out of the loglam range."""
         with self.assertRaises(ValueError):
-            WavelengthAlign(self.valid_data, (1000, 2000))
+            WavelengthAlignment.WavelengthAlign(self.valid_data, (1000, 2000))
 
 if __name__ == '__main__':
     unittest.main()
