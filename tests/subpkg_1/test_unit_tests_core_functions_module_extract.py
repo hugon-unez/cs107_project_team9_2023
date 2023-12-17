@@ -177,5 +177,13 @@ class TestSpectraExtract(unittest.TestCase):
         # make sure dataframe has correct columns
         self.assertCountEqual(['Wavelength', 'Flux', 'BestFit', 'SkyFlux'], data.columns.tolist())
 
+        data_full = extractor.extract_spectra_full()
+
+        # make sure dataframe not empty
+        self.assertFalse(data_full.empty, "DataFrame should not be empty")
+
+        # make sure dataframe has correct columns
+        self.assertCountEqual(['flux', 'loglam', 'ivar', 'and_mask', 'or_mask', 'wdisp', 'sky', 'model'], data_ful.columns.tolist())
+
 if __name__ == '__main__':
     unittest.main()
