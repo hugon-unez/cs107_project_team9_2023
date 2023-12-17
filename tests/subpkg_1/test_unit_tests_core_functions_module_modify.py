@@ -72,14 +72,15 @@ class TestDataPreprocessor(unittest.TestCase):
     @patch('group9_package.subpkg_1.core_functions_module_extract.SDSS.query_sql')
     def test_interpolate_data(self, mock_query_sql):
         """Tests that we correctly interpolate valid spectral data"""
-        data = pd.DataFrame({'ra': [1, 2, 3,7], 'u': [7, 8, 9,15]})
+        data = pd.DataFrame({'ra': [1, 2, 3,7], 'u': [7, 8, 9, 15]})
         mock_query_sql.return_value = Table.from_pandas(data)
+        test_data = data.copy()
         data_preprocessor = DataPreprocessor(self.valid_query, data=data)
 
         new_wavelengths = np.array([1.2, 1.5, 2.9, 4])
         data_preprocessor.interpolate_data(new_wavelengths)
 
-        interp_function = interp1d(data['ra'], data['u'], kind='cubic', fill_value="extrapolate", bounds_error=False)
+        interp_function = interp1d(test_data['ra'], test_data['u'], kind='cubic', fill_value="extrapolate", bounds_error=False)
         interpolated_values = interp_function(new_wavelengths)
         np.testing.assert_array_almost_equal(data_preprocessor.data['u'], interpolated_values)
 
@@ -98,14 +99,14 @@ class TestDataPreprocessor(unittest.TestCase):
     def test_correct_redshift(self, mock_query_sql):
         """Tests that we correctly correct redshift in valid spectral data"""
         data = pd.DataFrame({'ra': [1, 2, 3], 'u': [7, 8, 9], 'g': [10, 11, 12], 'r': [13, 14, 15], 'i': [16, 17, 18], 'z': [0.4, 0.5, 0.6]})
+        test_data = data.copy()
         mock_query_sql.return_value = Table.from_pandas(data)
         data_preprocessor = DataPreprocessor(self.valid_query, data=data)
-
         bands = ['u', 'g', 'r', 'i']
         data_preprocessor.correct_redshift(bands)
 
         for band in bands:
-            corrected_values = data[band] / (1 + data['z'])
+            corrected_values = test_data[band] / (1 + test_data['z'])
             np.testing.assert_array_almost_equal(data_preprocessor.data[band], corrected_values)
 
     @patch('group9_package.subpkg_1.core_functions_module_extract.SDSS.query_sql')
