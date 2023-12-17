@@ -32,3 +32,12 @@ dependencies = [
   "pytest>=7.1,<8.0"
 ]
 
+[tool.hatch.build.targets.wheel]
+# Define the packages or directories to include in the wheel package
+packages = ["src"]
+
+# will add more includes
+files = ["README.md", "LICENSE"]
+
+# Will exclude github eventually
+exclude = []
