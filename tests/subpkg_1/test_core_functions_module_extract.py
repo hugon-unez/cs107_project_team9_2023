@@ -151,12 +151,14 @@ class TestSpectralAnalysisSpectraExtract():
 
         spectra_extractor = SpectraExtract(galaxies.data[0])
         spectra_data_valid = spectra_extractor.extract_spectra()
+        spectra_data_full_valid = spectra_extractor.extract_spectra_full()
         
         return {
             'valid_data_row': galaxies.data[0],
             'invalid_data_row_incorrect_type': "invalid data row",
             'invalid_data_row_missing_column': galaxies_data_copy[0],
-            'spectra_data_valid': spectra_data_valid
+            'spectra_data_valid': spectra_data_valid,
+            'spectra_data_full_valid': spectra_data_full_valid
         }
 
     @pytest.mark.usefixtures("setup_spectra_extract")
@@ -167,7 +169,7 @@ class TestSpectralAnalysisSpectraExtract():
         not a row from an astropy table, that we raise a ValueError if we are missing
         either 'plate', 'mjd', or 'fiberid' from our row of data
         """
-        valid_data_row, invalid_data_row_incorrect_type, invalid_data_row_missing_column, spectra_data_valid = setup_spectra_extract.values()
+        valid_data_row, invalid_data_row_incorrect_type, invalid_data_row_missing_column, spectra_data_valid, spectra_data_full_valid = setup_spectra_extract.values()
 
         with pytest.raises(TypeError):
             spectra_extractor = SpectraExtract(invalid_data_row_incorrect_type)
@@ -177,17 +179,20 @@ class TestSpectralAnalysisSpectraExtract():
 
     @pytest.mark.usefixtures("setup_spectra_extract")
     def test_extract_spectra(self, setup_spectra_extract):
-        """Tests extract spectra method 
+        """Tests extract spectra method and extract spectra full method
 
         Specifically, ensures that the spectra we query for is correct
         """
 
-        valid_data_row, invalid_data_row_incorrect_type, invalid_data_row_missing_column, spectra_data_valid = setup_spectra_extract.values()
+        valid_data_row, invalid_data_row_incorrect_type, invalid_data_row_missing_column, spectra_data_valid, spectra_data_full_valid = setup_spectra_extract.values()
 
         spectra_extractor = SpectraExtract(valid_data_row)
         test_spectra_data = spectra_extractor.extract_spectra()
+        test_spectra_full_data = spectra_extractor.extract_spectra_full()
 
         assert test_spectra_data.equals(spectra_data_valid)
+        assert test_spectra_full_data.equals(spectra_data_full_valid)
+
         
 
 

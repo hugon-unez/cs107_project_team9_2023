@@ -12,6 +12,7 @@ from requests.exceptions import RequestException
 import pandas as pd
 import requests
 import io
+from astropy.io import fits
 import time
 
 class SpectralAnalysisBase:
@@ -201,4 +202,46 @@ class SpectraExtract(SpectralAnalysisBase):
                 time.sleep(delay)  # Adding a delay before the next retry
 
         #print failure message
+        print(f'Request failed after {retries} retries. Ensure proper row was input or try again later.')
+
+    def extract_spectra_full(self):
+        """Retrieves full spectral data in FITS format and processes it.
+
+        Returns:
+            DataFrame: A Pandas DataFrame containing the processed spectral data.
+        """
+        # Initialize values to query
+        row = self.row
+        plate = row['plate']
+        mjd = row['mjd']
+        fiberid = row['fiberid']
+
+        # Use initialized values for the URL
+        url = f'http://dr18.sdss.org/optical/spectrum/view/data/format=fits/spec=lite?plateid={plate}&mjd={mjd}&fiberid={fiberid}'
+
+        # Since the site might be faulty, retry a few times - error 500 is common even with a correct query
+        retries = 5
+        delay = 2
+
+        for i in range(retries):
+            response = requests.get(url)
+
+            if response.status_code == 200:
+                # Process the FITS data
+                fits_data = fits.open(io.BytesIO(response.content))
+
+                # Extract the data you need from the FITS file (example: HDUList[1].data)
+                # Replace the following line with your actual FITS data extraction logic.
+                processed_data = fits_data[1].data
+
+                # Convert the processed data to a Pandas DataFrame
+                df = pd.DataFrame(processed_data)
+
+                print('Successful Query!')
+                return df
+            else:
+                print(f'Request failed with status code: {response.status_code}. Retrying...')
+                time.sleep(delay)  # Adding a delay before the next retry
+
+        # Print failure message
         print(f'Request failed after {retries} retries. Ensure proper row was input or try again later.')
