@@ -21,3 +21,4 @@ How to Run tests:
 - run the script by running "./run_tests.sh pytest" in the command line
 
 [View Documentation](docs/_build/html/index.html)
+[View Package](https://test.pypi.org/project/team09CS107Harvard2023/)
