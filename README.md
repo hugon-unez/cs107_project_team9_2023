@@ -4,6 +4,8 @@
 [![CS107 Project - Tests](https://code.harvard.edu/CS107/team09_2023/actions/workflows/tests.yml/badge.svg?branch=dev)](https://code.harvard.edu/CS107/team09_2023/actions/workflows/tests.yml)
 
 
-
 Paul Alexis Self-Eval:
 I spent approximately a total of 20 hours on the project. The bulk of this was dedicated to figuring things out as opposed to actually writing the code. My main contributions to the project include the initial api mapping, the data-preprocessing module, the unit tests for the preprocessing module, the crossmatch module and description of the execution of our first package. As a less experienced coder on the team, I was given a bit of runway to work on the modules, which may have led to spending more time on modules than someone with more experience would have done. It also meant that some of my initial work had to be tweaked by the team.
+
+Ricardo Linares' Self-Eval:
+I spent approximately a total of 50 hours on the project. Roughly 6 hours of this time was spent on Milestones 3 and 4, deciding how our team was going to organize the modules and detailing this in the API_draft, and milestone4.md file. Roughly 8 hours of this time was spent on configuring the yml files and debugging them. About 8 hours was spent coding and testing the machine learning module, as I was the sole coder of this module and its tests. The rest of the 28 hours were spent on things such as (1) creating docstrings for code and tests that did not have them and revising the docstrings to make them more detailed for code that did have them; (2) making integration tests for the visualize module, the SpectraExtract Class of the core_functions_module_extract module, and unit tests for the SpectraExtract Class of the core_functions_module_extract module and the WavelengthAlignment Class of the core_functions_module_modify module; (3) and lastly making the html files for our documentation.
