@@ -5,6 +5,7 @@ Specifically, it ensures that all of our classes within the module work dependen
 import unittest
 import numpy as np
 import pandas as pd
+from scipy.interpolate import interp1d
 from group9_package.subpkg_1.core_functions_module_modify import DataPreprocessor
 
 class TestDataPreprocessor(unittest.TestCase):

@@ -1,13 +1,14 @@
 """This unit test module runs tests for core_functions_module_modify.py"""
 
 import unittest
-from unittest.mock import patch
-from astropy.table import Table
 import pandas as pd
 import numpy as np
+from unittest.mock import patch
+from astropy.table import Table
 from scipy.interpolate import interp1d
 from group9_package.subpkg_1.core_functions_module_extract import SpectralAnalysisBase
-from group9_package.subpkg_1.core_functions_module_modify import DataPreprocessor
+from group9_package.subpkg_1.core_functions_module_modify import DataPreprocessor, WavelengthAlignment
+
 
 class TestDataPreprocessor(unittest.TestCase):
     """A class for testing our methods in the DataPreprocessor Class"""
@@ -118,3 +119,56 @@ class TestDataPreprocessor(unittest.TestCase):
             dataPre = DataPreprocessor(self.valid_query, data=data)
             dataPre.data = None
             dataPre.correct_redshift()
+
+class TestWavelengthAlignment(unittest.TestCase):
+    """Test cases for the WavelengthAlignment Class."""
+
+    def setUp(self):
+        """Set up valid data for testing."""
+        # Sample valid spectra data
+        self.valid_data = pd.DataFrame({
+            'loglam': np.linspace(4000, 8000, 100),
+            'flux': np.random.rand(100),
+            'ivar': np.random.rand(100),
+            'and_mask': np.zeros(100, dtype=int),
+            'or_mask': np.zeros(100, dtype=int),
+            'wdisp': np.random.rand(100),
+            'sky': np.random.rand(100),
+            'model': np.random.rand(100)
+        })
+
+    def test_alignment(self):
+        """Test the alignment of spectra data."""
+        # Create sample spectra data
+
+        num_wavelengths = 100
+        target_range = (5000, 7000)
+
+        aligned_spectra = WavelengthAlignment.WavelengthAlign(self.valid_data, target_range)
+
+        # Check if aligned spectra have the same length as target_range
+        self.assertEqual(len(aligned_spectra['loglam']), num_wavelengths)
+
+        # Check if flux values are correctly interpolated
+        interpolator = interp1d(aligned_spectra['loglam'], aligned_spectra['flux'], kind='linear', fill_value=0.0, bounds_error=False)
+        interpolated_flux = interpolator(aligned_spectra['loglam'])
+        np.testing.assert_allclose(aligned_spectra['flux'], interpolated_flux)
+
+    def test_invalid_data_type(self):
+        """Test if a ValueError is raised for invalid data type."""
+        with self.assertRaises(ValueError):
+            WavelengthAlignment.WavelengthAlign("invalid_data_type", (4000, 8000))
+
+    def test_missing_columns(self):
+        """Test if a ValueError is raised for missing columns in the DataFrame."""
+        missing_columns_data = self.valid_data.drop(columns=['flux', 'ivar'])
+        with self.assertRaises(ValueError):
+            WavelengthAlignment.WavelengthAlign(missing_columns_data, (4000, 8000))
+
+    def test_target_range_out_of_range(self):
+        """Test if a ValueError is raised when the target range is out of the loglam range."""
+        with self.assertRaises(ValueError):
+            WavelengthAlignment.WavelengthAlign(self.valid_data, (1000, 2000))
+
+if __name__ == '__main__':
+    unittest.main()
