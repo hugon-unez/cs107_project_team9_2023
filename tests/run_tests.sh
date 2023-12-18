@@ -12,6 +12,7 @@ tests=(
     subpkg_1/test_unit_tests_visualize_module.py
     subpkg_1/test_unit_tests_core_functions_module_extract.py
     subpkg_1/test_unit_tests_core_functions_module_modify.py
+    subpkg_1/test_unit_tests_data_augmentation_module.py
     subpkg_2/test_machine_learning_module.py
     subpkg_2/test_unit_tests_machine_learning_module.py
     subpkg_2/test_unit_tests_cross_matching_module.py
