@@ -15,3 +15,7 @@ I worked on this project approximately 45-50 hours on a many different aspects. 
 
 Sameer Das Self-Eval: 
 I spent approximately 18-20 hours working on this project. I spent most of my time focusing on creating the metadata extraction shaping and ensuring that we could access data in the proper shapes/frames in order to operate in other functions. I spent a few hours earlier on in the project with helping organize the module structure. Later on in the project, my contributions were helping with documentation issues we had with SDSS sourcing and then making sure we could hit the SRS targets for certain labels such as classification of star/galaxy. Other than this, I lended a hand on making suggestions for direction of various aspects of data augmentation (didn't write any code, just made suggestions) and adding some portions of code here and there. 
+
+How to Run tests:
+- enter the tests folder
+- run the script by running "./run_tests.sh pytest" in the command line
