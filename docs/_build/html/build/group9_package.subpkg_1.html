@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>group9_package.subpkg_1 package &#8212; CS107 Final Project Team 9 2023 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=dca6b923"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="group9-package-subpkg-1-package">
+<h1>group9_package.subpkg_1 package<a class="headerlink" href="#group9-package-subpkg-1-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-group9_package.subpkg_1.core_functions_module_extract">
+<span id="group9-package-subpkg-1-core-functions-module-extract-module"></span><h2>group9_package.subpkg_1.core_functions_module_extract module<a class="headerlink" href="#module-group9_package.subpkg_1.core_functions_module_extract" title="Permalink to this heading">¶</a></h2>
+<p>This python module provides functionality for querying and extracting astronomical data from the SDSS database.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.MetaDataExtractor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">group9_package.subpkg_1.core_functions_module_extract.</span></span><span class="sig-name descname"><span class="pre">MetaDataExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.MetaDataExtractor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase" title="group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralAnalysisBase</span></code></a></p>
+<p>A Class for extracting user requested metadata</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.MetaDataExtractor.extract_chemical_abundances">
+<span class="sig-name descname"><span class="pre">extract_chemical_abundances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.MetaDataExtractor.extract_chemical_abundances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts chemical abundances from the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A table containing the ‘bestObjID’ and ‘elodieFeH’ columns.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Astropy Table</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If no data is available to extract chemical abundances or the required columns are missing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.MetaDataExtractor.extract_coordinates">
+<span class="sig-name descname"><span class="pre">extract_coordinates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.MetaDataExtractor.extract_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts astronomical coordinates from the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A table containing the ‘bestObjID’, ‘ra’, and ‘dec’ columns.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Astropy Table</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If no data is available to extract coordinates or the required columns are missing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.MetaDataExtractor.extract_identifiers">
+<span class="sig-name descname"><span class="pre">extract_identifiers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.MetaDataExtractor.extract_identifiers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts unique identifiers from the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A column of identifiers from the data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Astropy Table Column</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If no data is available to extract identifiers or the ‘bestObjID’ column is missing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.MetaDataExtractor.extract_redshifts">
+<span class="sig-name descname"><span class="pre">extract_redshifts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.MetaDataExtractor.extract_redshifts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts redshift values from the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A table containing the ‘bestObjID’ and ‘elodieZ’ columns.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Astropy Table</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If no data is available to extract redshifts or the required columns are missing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.SpectraExtract">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">group9_package.subpkg_1.core_functions_module_extract.</span></span><span class="sig-name descname"><span class="pre">SpectraExtract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.SpectraExtract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase" title="group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralAnalysisBase</span></code></a></p>
+<p>A Class for extracting spectral data for individual astronomical objects</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.SpectraExtract.extract_spectra">
+<span class="sig-name descname"><span class="pre">extract_spectra</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.SpectraExtract.extract_spectra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves spectral data for the astronomical object represented by inputted data row.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Pandas DataFrame containing the spectral data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.SpectraExtract.extract_spectra_full">
+<span class="sig-name descname"><span class="pre">extract_spectra_full</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.SpectraExtract.extract_spectra_full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves full spectral data in FITS format and processes it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Pandas DataFrame containing the processed spectral data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">group9_package.subpkg_1.core_functions_module_extract.</span></span><span class="sig-name descname"><span class="pre">SpectralAnalysisBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Foundational class for performing spectral analysis by querying and handling data from the SDSS database.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase.execute_query">
+<span class="sig-name descname"><span class="pre">execute_query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase.execute_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the SQL query against the SDSS database and stores the result in the data attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RemoteServiceError</strong><strong>, </strong><strong>TimeoutError</strong><strong>, </strong><strong>ValueError</strong><strong>, </strong><strong>RequestException</strong> – For various errors that may occur during query execution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase.query_validation">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">query_validation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase.query_validation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the given query string to ensure it contains basic elements of a SQL query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – The query string to validate.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the query string does not contain necessary SQL elements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-group9_package.subpkg_1.core_functions_module_modify">
+<span id="group9-package-subpkg-1-core-functions-module-modify-module"></span><h2>group9_package.subpkg_1.core_functions_module_modify module<a class="headerlink" href="#module-group9_package.subpkg_1.core_functions_module_modify" title="Permalink to this heading">¶</a></h2>
+<p>This python module extends the functionality of the core_functions_module_extract
+by focusing on data preprocessing and modification techniques of spectral data.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_modify.DataPreprocessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">group9_package.subpkg_1.core_functions_module_modify.</span></span><span class="sig-name descname"><span class="pre">DataPreprocessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_modify.DataPreprocessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase" title="group9_package.subpkg_1.core_functions_module_extract.SpectralAnalysisBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralAnalysisBase</span></code></a></p>
+<p>A Class for preprocessing spectral data including normalization, outlier removal, interpolation, and redshift correction.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_modify.DataPreprocessor.correct_redshift">
+<span class="sig-name descname"><span class="pre">correct_redshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['u',</span> <span class="pre">'g',</span> <span class="pre">'r',</span> <span class="pre">'i']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_modify.DataPreprocessor.correct_redshift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Corrects the wavelengths of spectral data for redshift.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bands</strong> (<em>list</em><em> of </em><em>str</em><em>, </em><em>optional</em>) – List of bands to apply redshift correction.
+Defaults to [‘u’, ‘g’, ‘r’, ‘i’].</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If there is no wavelength data available for redshift correction.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_modify.DataPreprocessor.interpolate_data">
+<span class="sig-name descname"><span class="pre">interpolate_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_wavelengths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_modify.DataPreprocessor.interpolate_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolates the spectral data to new wavelengths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_wavelengths</strong> (<em>list</em><em> or </em><em>array</em>) – The new wavelengths for interpolation.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If there is insufficient data for interpolation or if the lengths of new and old wavelengths do not match.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_modify.DataPreprocessor.normalize_data">
+<span class="sig-name descname"><span class="pre">normalize_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_modify.DataPreprocessor.normalize_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalizes the spectral data using Z-score normalization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If there is no data available for normalization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_modify.DataPreprocessor.remove_outliers">
+<span class="sig-name descname"><span class="pre">remove_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_modify.DataPreprocessor.remove_outliers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes outliers from the spectral data based on a Z-score threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – The Z-score threshold for identifying outliers.
+Defaults to 2.5.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If there is no data available for outlier removal.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_modify.WavelengthAlignment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">group9_package.subpkg_1.core_functions_module_modify.</span></span><span class="sig-name descname"><span class="pre">WavelengthAlignment</span></span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_modify.WavelengthAlignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.core_functions_module_modify.WavelengthAlignment.WavelengthAlign">
+<span class="sig-name descname"><span class="pre">WavelengthAlign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_range</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.core_functions_module_modify.WavelengthAlignment.WavelengthAlign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aligns spectra data to a specified wavelength range, potentially requiring interpolation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectra_data</strong> (<em>DataFrame</em>) – DataFrame containing FULL spectra data.
+It should have columns: ‘loglam’, ‘flux’, ‘ivar’, ‘and_mask’, ‘or_mask’, ‘wdisp’, ‘sky’, ‘model’.</p></li>
+<li><p><strong>target_range</strong> (<em>tuple</em>) – A tuple specifying the target wavelength range (start, end).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame containing aligned spectra data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-group9_package.subpkg_1.data_augmentation_module">
+<span id="group9-package-subpkg-1-data-augmentation-module-module"></span><h2>group9_package.subpkg_1.data_augmentation_module module<a class="headerlink" href="#module-group9_package.subpkg_1.data_augmentation_module" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.data_augmentation_module.DataAugmentation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">group9_package.subpkg_1.data_augmentation_module.</span></span><span class="sig-name descname"><span class="pre">DataAugmentation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.data_augmentation_module.DataAugmentation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A Class for Augmenting Preprocessed Spectral data with derivatives and fractional derivatives</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.data_augmentation_module.DataAugmentation.augment_both_derivatives">
+<span class="sig-name descname"><span class="pre">augment_both_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivative_order</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.data_augmentation_module.DataAugmentation.augment_both_derivatives" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Regular and Fractional Derivative of a column for
+spectral data and creates a column with the derivative data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Pandas Data Frame</em>) – spectral data to compute derivatives on</p></li>
+<li><p><strong>column_name</strong> – the name of the column to compite the derivative on</p></li>
+<li><p><strong>derivative_order</strong> – the order of the derivative to take</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.data_augmentation_module.DataAugmentation.compute_derivative">
+<span class="sig-name descname"><span class="pre">compute_derivative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.data_augmentation_module.DataAugmentation.compute_derivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Derivative of a column for spectral data and creates a
+column with the derivative data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Pandas Data Frame</em>) – spectral data to compute derivatives on</p></li>
+<li><p><strong>column_name</strong> – the name of the column to compite the derivative on</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the given column is not a column in the data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.data_augmentation_module.DataAugmentation.compute_fractional_derivative">
+<span class="sig-name descname"><span class="pre">compute_fractional_derivative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivative_order</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.data_augmentation_module.DataAugmentation.compute_fractional_derivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Fractional Derivative of a column for spectral data and
+creates a column with the derivative data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Pandas Data Frame</em>) – spectral data to compute derivatives on</p></li>
+<li><p><strong>column_name</strong> – the name of the column to compite the derivative on</p></li>
+<li><p><strong>derivative_order</strong> – the order of the derivative to take</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the given column is not a column in the data</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-group9_package.subpkg_1.visualize_module">
+<span id="group9-package-subpkg-1-visualize-module-module"></span><h2>group9_package.subpkg_1.visualize_module module<a class="headerlink" href="#module-group9_package.subpkg_1.visualize_module" title="Permalink to this heading">¶</a></h2>
+<p>Module for visualizing spectral data, providing tools to graphically represent
+spectra extracted from astronomical observations.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.visualize_module.SpectralVisualizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">group9_package.subpkg_1.visualize_module.</span></span><span class="sig-name descname"><span class="pre">SpectralVisualizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.visualize_module.SpectralVisualizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for visualizing spectral data either from a provided data frame
+or by extracting spectral data given a row of astronomical data.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="group9_package.subpkg_1.visualize_module.SpectralVisualizer.visualize">
+<span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#group9_package.subpkg_1.visualize_module.SpectralVisualizer.visualize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualizes the spectral data by plotting the flux against the wavelength.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If both ‘data’ and ‘row’ are None or empty, indicating there is no valid data to visualize.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-group9_package.subpkg_1">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-group9_package.subpkg_1" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">CS107 Final Project Team 9</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ricardo Linares, Hugo Nunez, Zachary Stack, Paul Alexis, Sameer Das.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/build/group9_package.subpkg_1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
