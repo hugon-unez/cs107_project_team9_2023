@@ -19,3 +19,5 @@ I spent approximately 18-20 hours working on this project. I spent most of my ti
 How to Run tests:
 - enter the tests folder
 - run the script by running "./run_tests.sh pytest" in the command line
+
+[View Documentation](docs/_build/html/index.html)
