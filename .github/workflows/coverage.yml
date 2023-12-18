@@ -1,5 +1,65 @@
+# Name of the workflow
 name: CS107 Project - Code Coverage
 
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on a pull request for the dev and main branch
   pull_request:
     types: [opened, reopened]
+    branches:
+      - dev
+      - main
+
+  # Triggers the workflow on push for all branches
+  push:
+    branches:
+      - "**"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+jobs:
+  test_code_coverage_core_functions_module:
+    name: Code coverage of the tests for the core functions module
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the head of branch (what you just pushed)
+      - uses: actions/checkout@v3
+
+      # Setup Python environment in the container
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.11' # trying to break ci     
+      # set python path
+      - name: Set PYTHONPATH
+        run: export PYTHONPATH="$(pwd -P)/src":${PYTHONPATH}
+
+      # Install Python dependencies
+      - name: Install dependencies
+        run: python -m pip install build pytest pytest-cov astroquery differint
+
+      # Build and install our package in the container
+      - name: Build and install the group9_package in the container (using PEP517/518)
+        run: (python -m build --wheel && python -m pip install --force-reinstall dist/*)
+
+      - name: Debugging
+        run: |
+          pwd
+          ls -R
+          python -m pip list
+
+      # Check coverage and fail if below 90%
+      - name: Check code coverage
+        run: |
+          pwd
+          pytest -p no:cacheprovider --cov=group9_package --cov-report term-missing tests/
+          coverage=$(pytest -p no:cacheprovider --cov=group9_package --cov-report term-missing tests/ | awk '/TOTAL/ {print substr($NF, 1, length($NF)-1)}')
+          echo "Code coverage: $coverage%"
+          if [ $coverage -lt 90 ]; then
+            echo "Code coverage is less than 90%."
+            pytest --cov=group9_package --cov-report term-missing
+            pwd
+            cat src/group9_package/subpkg_1/core_functions_module.py
+            git log -1
+            false
+          fi
