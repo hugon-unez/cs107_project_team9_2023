@@ -6,12 +6,12 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 import sys
-import os
+import os 
 sys.path.append(os.path.abspath('../src'))
 
 project = 'CS107 Final Project Team 9'
-copyright = '2023, Hugo Nunez, Zachary Stack, Ricardo Linares, Paul Alexis, Sameer Das'
-author = 'Hugo Nunez, Zachary Stack, Ricardo Linares, Paul Alexis, Sameer Das'
+copyright = '2023, Ricardo Linares, Hugo Nunez, Zachary Stack, Paul Alexis, Sameer Das'
+author = 'Ricardo Linares, Hugo Nunez, Zachary Stack, Paul Alexis, Sameer Das'
 release = '2023'
 
 # -- General configuration ---------------------------------------------------
